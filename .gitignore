@@ -3,6 +3,7 @@
 
 # Unignore all with extensions
 !*.*
+!makefile
 
 # Unignore all dirs
 !*/
@@ -11,3 +12,4 @@
 *.o
 *.obj
 obj/
+
