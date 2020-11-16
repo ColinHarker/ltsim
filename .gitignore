@@ -6,3 +6,7 @@
 
 # Unignore all dirs
 !*/
+
+# Object files
+*.o
+*.obj
