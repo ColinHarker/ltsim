@@ -10,3 +10,4 @@
 # Object files
 *.o
 *.obj
+obj/
