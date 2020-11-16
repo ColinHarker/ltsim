@@ -7,6 +7,11 @@ int main(){
   //set up memory and clear screan
   initscr();
 
+  WINDOW* win = newwin(10, 10, 1, 1);
+  box(win, '*', '*');
+  touchwin(win);
+  wrefresh(win);
+
   getch();
 
   //refreshes screen to match what is in memory

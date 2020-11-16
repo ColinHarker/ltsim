@@ -28,7 +28,7 @@ bool get_cpu_times(size_t &idle_time, size_t &total_time) {
   return true;
 }
  
-int main(int, char *[]) {
+int run() {
 
   size_t previous_idle_time=0, previous_total_time=0;
   
@@ -41,4 +41,5 @@ int main(int, char *[]) {
     previous_idle_time = idle_time;
     previous_total_time = total_time;
   }
+  return 1;
 }
