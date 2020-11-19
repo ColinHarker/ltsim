@@ -4,7 +4,7 @@ CC = g++
 # Compiler Flags
 CFLAGS = -g -Wall -std=c++11 -D_GNU_SOURCE
 # Linking flags
-LDFLAGS = -lncurses
+LDFLAGS = -lncurses 
 
 # Setup flags from wildcards
 SOURCES := $(filter-out src/main.cpp, $(filter-out src/test.cpp, $(wildcard src/*.cpp))) # get all cpp files excluding main and test
