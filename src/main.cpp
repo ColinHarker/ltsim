@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <sys/ioctl.h>
 
 WINDOW *borders;
 
@@ -10,22 +11,33 @@ int main()
   raw();
   noecho();
 
-  int height, width, start_y, start_x;
-  height = 10;
-  width = 20;
-  start_y = start_x = 10;
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
 
-  WINDOW *win = newwin(height, width, start_y, start_x);
+  const int height = w.ws_row;
+  const int width = w.ws_col;
+  int start_y = 0;
+  int start_x = 0;
+
+  //WINDOW *win = newwin(height, width, start_y, start_x);
+  WINDOW *disp = newwin(height / 2, width / 2, 0, 0);
+  WINDOW *disp_2 = newwin(height, width / 2, width / 2, height);
+
   refresh();
 
   int left, right, top, bottom, tlc, trc, blc, brc;
 
-  left = right = static_cast<int>('|');
-  top = bottom = static_cast<int>('-');
-  tlc = trc = blc = brc = static_cast<int>('*');
-  wborder(win, left, right, top, bottom, tlc, trc, blc, brc);
-  mvwprintw(win, 1, 1, "this is my box");
-  wrefresh(win);
+  left = right = 0;
+  top = bottom = 0;
+  tlc = trc = blc = brc = 0;
+
+  //wborder(win, left, right, top, bottom, tlc, trc, blc, brc);
+  box(disp, 0, 0);
+  box(disp_2, 0, 0);
+
+  //wrefresh(win);
+  //wrefresh(disp);
+  wrefresh(disp_2);
 
   getch();
 
