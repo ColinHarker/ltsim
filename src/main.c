@@ -21,7 +21,7 @@ int main()
 
   //WINDOW *win = newwin(height, width, start_y, start_x);
   WINDOW *disp = newwin(height / 2, width / 2, 0, 0);
-  WINDOW *disp_2 = newwin(height, width / 2, width / 2, height);
+  WINDOW *disp_2 = newwin(height, width / 2, 0, width / 2);
 
   refresh();
 
@@ -30,7 +30,7 @@ int main()
   box(disp_2, 0, 0);
 
   //wrefresh(win);
-  //wrefresh(disp);
+  wrefresh(disp);
   wrefresh(disp_2);
 
   getch();
