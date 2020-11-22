@@ -1,13 +1,13 @@
 
-CC = gcc
+CC = g++
 
 # Compiler Flags
-CFLAGS = -g -Wall -std=c11 -D_GNU_SOURCE
+CFLAGS = -g -Wall -std=c++11 -D_GNU_SOURCE
 # Linking flags
 LDFLAGS = -lncurses 
 
 # Setup flags from wildcards
-SOURCES := $(filter-out src/main.c, $(filter-out src/test.c, $(wildcard src/*.c))) # get all cpp files excluding main and test
+SOURCES := $(filter-out src/main.cpp, $(filter-out src/test.cpp, $(wildcard src/*.cpp))) # get all cpp files excluding main and test
 INCLUDES := $(wildcard src/*.h)
 OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
 
@@ -20,14 +20,14 @@ main: obj/main.o $(OBJECTS)
 	$(CC) $(CFLAGS) obj/main.o $(OBJECTS) -o main $(LDFLAGS)
  			
 #build test
-obj/test.o: src/test.c | obj
+obj/test.o: src/test.cpp | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 			
 # build main
-obj/main.o: src/main.c | obj
+obj/main.o: src/main.cpp | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJECTS): obj/%.o : src/%.c | obj
+$(OBJECTS): obj/%.o : src/%.cpp | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create object folder if it does not exist

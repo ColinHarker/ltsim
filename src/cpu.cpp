@@ -1,3 +1,7 @@
+#ifdef _WIN32
+//get cpu for windows
+#else
+
 #include <fstream>
 #include <iostream>
 #include <numeric>
@@ -48,3 +52,4 @@ void run()
     sleep(1);
   }
 }
+#endif
