@@ -72,7 +72,6 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 <!-- GETTING STARTED -->
 ## Getting Started
----
 
 ### Prerequisites
 
@@ -99,7 +98,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/ColinHarker/ltssd/issues) for a list of proposed features (and known issues).
 
 
 
