@@ -3,9 +3,11 @@
 
 #include <ncurses.h>
 #include <string>
+#include <sstream>
 #include <array>
 #include <thread>
 #include <future>
+#include <iomanip>
 #include <sys/ioctl.h>
 
 #include "window_wrap.h"

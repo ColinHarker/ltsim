@@ -5,8 +5,9 @@ int main()
   //initialize the screen
   //set up memory and clear screan
   initscr();
-  raw();
+  //raw();
   noecho();
+  curs_set(0);
 
   if (!has_colors())
   {
@@ -14,8 +15,21 @@ int main()
     getchar();
     return -1;
   }
+
+  //setting color enum for uses with color_pair()
+  //offset by 1 so that it starts on proper number
+  enum color
+  {
+    null,
+    green,
+    yellow,
+    red
+  };
+
   start_color();
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(3, COLOR_RED, COLOR_BLACK);
 
   struct winsize w;
   ioctl(0, TIOCGWINSZ, &w);
@@ -29,7 +43,6 @@ int main()
 
   refresh();
 
-  box(disp.getWin(), 0, 0);
   box(disp_2.getWin(), 0, 0);
   box(menu.getWin(), 0, 0);
 
@@ -37,63 +50,60 @@ int main()
   wrefresh(disp_2.getWin());
   wrefresh(menu.getWin());
 
-  //allows us to use arrow keys
-  keypad(menu.getWin(), true);
+  CpuReader cpu;
 
-  std::array<std::string, 3> choices = {"One", "Two", "Three"};
-  int choice = 0;
-  int highlight = 0;
-
-  //CpuReader *cpu;
-  //std::thread cpu_t(&CpuReader::run, cpu, menu);
-  //cpu.run(menu);
-  //mvwprintw(menu.getWin(), 5, 1, to_string(util).c_str());
+  mvwprintw(disp.getWin(), 1, 2, cpu.getModelName().c_str());
 
   while (1)
   {
-    for (int i = 0; i < 3; i++)
-    {
-      if (i == highlight)
-        //turn on element, reverse background color
-        wattron(menu.getWin(), A_REVERSE);
-      mvwprintw(menu.getWin(), i + 1, 1, choices.at(i).c_str());
-      wattroff(menu.getWin(), A_REVERSE);
-    }
+    wattron(disp.getWin(), A_DIM);
+    mvwprintw(disp.getWin(), 0, 2, cpu.getVersion().c_str());
+    wattroff(disp.getWin(), A_DIM);
+    float util = cpu.run();
 
-    mvwprintw(disp.getWin(), 1, 2, "CPU");
-    mvwprintw(disp.getWin(), 1, 7, "[");
-    for (int i = 8; i < 30; i++)
+    mvwprintw(disp.getWin(), 2, 2, "CPU");
+    mvwprintw(disp.getWin(), 2, 7, "[");
+
+    int level = static_cast<int>((32 * (util / 100)) + 8);
+    for (int i = 0; i < 32; i++)
     {
-      wattron(disp.getWin(), COLOR_PAIR(1));
-      mvwprintw(disp.getWin(), 1, i, "|");
-      wattroff(disp.getWin(), COLOR_PAIR(1));
+      int offset = i + 8;
+      if (offset > level)
+      {
+        mvwprintw(disp.getWin(), 2, offset, " ");
+      }
+      else
+      {
+        // less than 60% cpu utilization
+        if (util < 60)
+        {
+          wattron(disp.getWin(), COLOR_PAIR(green));
+          mvwprintw(disp.getWin(), 2, offset, "|");
+          wattroff(disp.getWin(), COLOR_PAIR(green));
+        }
+        else if (util >= 60 && util < 85)
+        {
+          wattron(disp.getWin(), COLOR_PAIR(yellow));
+          mvwprintw(disp.getWin(), 2, offset, "|");
+          wattroff(disp.getWin(), COLOR_PAIR(yellow));
+        }
+        else
+        {
+          wattron(disp.getWin(), COLOR_PAIR(red));
+          mvwprintw(disp.getWin(), 2, offset, "|");
+          wattroff(disp.getWin(), COLOR_PAIR(red));
+        }
+      }
+      wrefresh(disp.getWin());
     }
-    mvwprintw(disp.getWin(), 1, 40, "]");
+    mvwprintw(disp.getWin(), 2, 40, "]");
+
+    std::ostringstream ss;
+    ss << std::setprecision(2) << std::setw(2) << std::fixed << util << " %%";
+    mvwprintw(disp.getWin(), 2, 42, ss.str().c_str());
     wrefresh(disp.getWin());
-    choice = wgetch(menu.getWin());
-
-    switch (choice)
-    {
-    case KEY_UP:
-      highlight--;
-      if (highlight < 0)
-        highlight = 0;
-      break;
-    case KEY_DOWN:
-      highlight++;
-      if (highlight > 2)
-        highlight = 2;
-      break;
-    default:
-      break;
-    }
-
-    //if user presses ENTER key
-    if (choice == 10)
-      break;
+    sleep(1);
   }
-
-  mvwprintw(disp.getWin(), 0, 0, choices.at(highlight).c_str());
 
   getch();
 

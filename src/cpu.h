@@ -17,7 +17,9 @@ private:
 
 public:
     CpuReader(){};
-    void run(WindowWrap &);
+    std::string getModelName();
+    std::string getVersion();
+    float run();
 };
 
 #endif

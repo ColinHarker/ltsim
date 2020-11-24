@@ -27,16 +27,45 @@ bool CpuReader::get_cpu_times()
   return true;
 }
 
-void CpuReader::run(WindowWrap &menu)
+float CpuReader::run()
 {
-
-  while (get_cpu_times())
+  if (get_cpu_times())
   {
     const float idle_time_delta = idle_time - previous_idle_time;
     const float total_time_delta = total_time - previous_total_time;
     const float utilization = 100.0 * (1.0 - idle_time_delta / total_time_delta);
     previous_idle_time = idle_time;
     previous_total_time = total_time;
-    mvwprintw(menu.getWin(), 5, 1, std::to_string(utilization).c_str());
+    return utilization;
   }
+  else
+  {
+    return -1;
+  }
+}
+
+std::string CpuReader::getModelName()
+{
+  std::ifstream proc_cpuinfo("/proc/cpuinfo");
+  proc_cpuinfo.seekg(std::ios::beg);
+  for (int i = 0; i < 4; ++i)
+  {
+    proc_cpuinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+  //proc_cpuinfo.ignore();
+  std::string ret;
+  proc_cpuinfo.ignore(13);
+  std::getline(proc_cpuinfo, ret);
+
+  return ret;
+}
+
+std::string CpuReader::getVersion()
+{
+  std::ifstream proc_cpuinfo("/proc/version");
+  std::string ret;
+  std::getline(proc_cpuinfo, ret);
+  std::string version = ret.substr(0, 41);
+  std::string time = ret.substr(94, 112);
+  return version + " " + time;
 }
