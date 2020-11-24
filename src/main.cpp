@@ -18,13 +18,6 @@ int main()
 
   //setting color enum for uses with color_pair()
   //offset by 1 so that it starts on proper number
-  enum color
-  {
-    null,
-    green,
-    yellow,
-    red
-  };
 
   start_color();
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
@@ -52,7 +45,7 @@ int main()
 
   CpuReader cpu;
 
-  mvwprintw(disp.getWin(), 1, 2, cpu.getModelName().c_str());
+  mvwprintw(disp.getWin(), 2, 2, cpu.getModelName().c_str());
 
   while (1)
   {
@@ -61,8 +54,8 @@ int main()
     wattroff(disp.getWin(), A_DIM);
     float util = cpu.run();
 
-    mvwprintw(disp.getWin(), 2, 2, "CPU");
-    mvwprintw(disp.getWin(), 2, 7, "[");
+    mvwprintw(disp.getWin(), 3, 2, "CPU");
+    mvwprintw(disp.getWin(), 3, 7, "[");
 
     int level = static_cast<int>((32 * (util / 100)) + 8);
     for (int i = 0; i < 32; i++)
@@ -70,7 +63,7 @@ int main()
       int offset = i + 8;
       if (offset > level)
       {
-        mvwprintw(disp.getWin(), 2, offset, " ");
+        mvwprintw(disp.getWin(), 3, offset, " ");
       }
       else
       {
@@ -78,29 +71,29 @@ int main()
         if (util < 60)
         {
           wattron(disp.getWin(), COLOR_PAIR(green));
-          mvwprintw(disp.getWin(), 2, offset, "|");
+          mvwprintw(disp.getWin(), 3, offset, "|");
           wattroff(disp.getWin(), COLOR_PAIR(green));
         }
         else if (util >= 60 && util < 85)
         {
           wattron(disp.getWin(), COLOR_PAIR(yellow));
-          mvwprintw(disp.getWin(), 2, offset, "|");
+          mvwprintw(disp.getWin(), 3, offset, "|");
           wattroff(disp.getWin(), COLOR_PAIR(yellow));
         }
         else
         {
           wattron(disp.getWin(), COLOR_PAIR(red));
-          mvwprintw(disp.getWin(), 2, offset, "|");
+          mvwprintw(disp.getWin(), 3, offset, "|");
           wattroff(disp.getWin(), COLOR_PAIR(red));
         }
       }
       wrefresh(disp.getWin());
     }
-    mvwprintw(disp.getWin(), 2, 40, "]");
+    mvwprintw(disp.getWin(), 3, 40, "]");
 
     std::ostringstream ss;
-    ss << std::setprecision(2) << std::setw(2) << std::fixed << util << " %%";
-    mvwprintw(disp.getWin(), 2, 42, ss.str().c_str());
+    ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
+    mvwprintw(disp.getWin(), 3, 42, ss.str().c_str());
     wrefresh(disp.getWin());
     sleep(1);
   }

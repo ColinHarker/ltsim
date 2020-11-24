@@ -1,5 +1,7 @@
 #include "linker.h"
 
+CpuReader::CpuReader() { parseModelName(); }
+
 std::vector<size_t> CpuReader::retrieve_cpu_times()
 {
 
@@ -46,6 +48,11 @@ float CpuReader::run()
 
 std::string CpuReader::getModelName()
 {
+  return modelName;
+}
+
+void CpuReader::parseModelName()
+{
   std::ifstream proc_cpuinfo("/proc/cpuinfo");
   proc_cpuinfo.seekg(std::ios::beg);
   for (int i = 0; i < 4; ++i)
@@ -53,19 +60,24 @@ std::string CpuReader::getModelName()
     proc_cpuinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
   //proc_cpuinfo.ignore();
-  std::string ret;
+  std::string mn;
   proc_cpuinfo.ignore(13);
-  std::getline(proc_cpuinfo, ret);
+  std::getline(proc_cpuinfo, mn);
 
-  return ret;
+  modelName = mn;
 }
 
 std::string CpuReader::getVersion()
 {
+  parseVersion();
+  return version;
+}
+
+void CpuReader::parseVersion()
+{
   std::ifstream proc_cpuinfo("/proc/version");
   std::string ret;
   std::getline(proc_cpuinfo, ret);
-  std::string version = ret.substr(0, 41);
-  std::string time = ret.substr(94, 112);
-  return version + " " + time;
+  std::string vers = ret.substr(0, 41);
+  version = vers;
 }
