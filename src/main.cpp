@@ -1,7 +1,5 @@
 #include "linker.h"
 
-using namespace std;
-
 int main()
 {
   //initialize the screen
@@ -9,6 +7,15 @@ int main()
   initscr();
   raw();
   noecho();
+
+  if (!has_colors())
+  {
+    printw("Terminal does not support color");
+    getchar();
+    return -1;
+  }
+  start_color();
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
 
   struct winsize w;
   ioctl(0, TIOCGWINSZ, &w);
@@ -33,13 +40,12 @@ int main()
   //allows us to use arrow keys
   keypad(menu.getWin(), true);
 
-  array<string, 3> choices = {"One", "Two", "Three"};
+  std::array<std::string, 3> choices = {"One", "Two", "Three"};
   int choice = 0;
   int highlight = 0;
-  float util;
-  CpuReader *cpu;
 
-  thread cpu_t(&CpuReader::run, cpu, menu);
+  //CpuReader *cpu;
+  //std::thread cpu_t(&CpuReader::run, cpu, menu);
   //cpu.run(menu);
   //mvwprintw(menu.getWin(), 5, 1, to_string(util).c_str());
 
@@ -54,6 +60,16 @@ int main()
       wattroff(menu.getWin(), A_REVERSE);
     }
 
+    mvwprintw(disp.getWin(), 1, 2, "CPU");
+    mvwprintw(disp.getWin(), 1, 7, "[");
+    for (int i = 8; i < 30; i++)
+    {
+      wattron(disp.getWin(), COLOR_PAIR(1));
+      mvwprintw(disp.getWin(), 1, i, "|");
+      wattroff(disp.getWin(), COLOR_PAIR(1));
+    }
+    mvwprintw(disp.getWin(), 1, 40, "]");
+    wrefresh(disp.getWin());
     choice = wgetch(menu.getWin());
 
     switch (choice)
