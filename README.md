@@ -131,36 +131,3 @@ Project Link: [GitHub - ColinHarker/ltssd: Linux Terminal System Statistics Disp
 
 
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/ltssd/ltssd.svg?style=for-the-badge
-[contributors-url]: https://github.com/ltssd/ltssd/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ltssd/ltssd.svg?style=for-the-badge
-[forks-url]: https://github.com/ltssd/ltssd/network/members
-[stars-shield]: https://img.shields.io/github/stars/ltssd/ltssd.svg?style=for-the-badge
-[stars-url]: https://github.com/ltssd/ltssd/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ltssd/ltssd.svg?style=for-the-badge
-[issues-url]: https://github.com/ltssd/ltssd/issues
-[license-shield]: https://img.shields.io/github/license/ltssd/ltssd.svg?style=for-the-badge
-[license-url]: https://github.com/ltssd/ltssd/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/ltssd
-[product-screenshot]: images/screenshot.png
