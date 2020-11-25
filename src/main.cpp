@@ -31,8 +31,8 @@ int main()
   const int T_COLS = w.ws_col;
 
   WindowWrap disp(T_ROWS / 2, T_COLS / 2, 0, 0);
-  WindowWrap disp_2(T_ROWS, T_COLS / 2, 0, T_COLS / 2);
-  WindowWrap menu((T_ROWS / 2) + 1, T_COLS / 2, T_ROWS / 2, 0);
+  WindowWrap disp_2(T_ROWS / 2, T_COLS / 2, 0, T_COLS / 2);
+  WindowWrap menu((T_ROWS / 2) + 1, T_COLS, T_ROWS / 2, 0);
 
   refresh();
 
@@ -94,6 +94,11 @@ int main()
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
     mvwprintw(disp.getWin(), 3, 42, ss.str().c_str());
+
+    std::string ps = exec("ps -aux");
+    mvwprintw(menu.getWin(), 1, 2, ps.c_str());
+
+    wrefresh(menu.getWin());
     wrefresh(disp.getWin());
     sleep(1);
   }

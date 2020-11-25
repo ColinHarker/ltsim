@@ -3,7 +3,7 @@
 <br />
 <p align="center">
 
-  <h3 align="center">LTSSD ( Linux Terminal System Statistics Display )</h3>
+  <h3 align="center">LTSIM ( Linux Terminal System Information Monitor)</h3>
 
 </p>
 
@@ -31,7 +31,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -75,11 +74,11 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 ### Installation
 1. Clone the repo
    ```sh
-   git clone https://github.com/ColinHarker/ltssd.git
+   git clone https://github.com/ColinHarker/ltsim.git
    ```
 2. Navigate to project directory and run file
    ```sh
-   cd /ltssd
+   cd /ltsim
    make run
    ```
 3. Thats it! You're good to go!
@@ -89,7 +88,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/ColinHarker/ltssd/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/ColinHarker/ltsim/issues) for a list of proposed features (and known issues).
 
 
 
@@ -118,7 +117,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Colin Harker - colinharker55@gmail.com
 
-Project Link: [GitHub - ColinHarker/ltssd: Linux Terminal System Statistics Display](https://github.com/ColinHarker/ltssd)
+Project Link: [GitHub - ColinHarker/ltsim: Linux Terminal System Information Monitor](https://github.com/ColinHarker/ltsim)
 
 
 
