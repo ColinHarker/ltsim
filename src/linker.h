@@ -1,17 +1,19 @@
 #ifndef LINKER_H
 #define LINKER_H
 
-#include <ncurses.h>
-#include <string>
-#include <sstream>
 #include <array>
-#include <thread>
 #include <future>
 #include <iomanip>
+#include <ncurses.h>
+#include <sstream>
+#include <string>
 #include <sys/ioctl.h>
+#include <thread>
 
-#include "utils.h"
-#include "window_wrap.h"
 #include "cpu.h"
+#include "window_wrap.h"
+#include "init.h"
+#include "runtime.h"
+#include "utils.h"
 
 #endif
