@@ -15,6 +15,7 @@ bool init()
       return false;
    }
 
+
    //setting color enum for uses with color_pair()
    //offset by 1 so that it starts on proper number
 

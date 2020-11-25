@@ -7,11 +7,12 @@ int main()
       return EXIT_FAILURE;
    }
 
+
    struct winsize w;
    ioctl(0, TIOCGWINSZ, &w);
-
    const int T_ROWS = w.ws_row;
    const int T_COLS = w.ws_col;
+
    bool running = true;
 
    WindowWrap disp(T_ROWS / 2, T_COLS / 2, 0, 0);
