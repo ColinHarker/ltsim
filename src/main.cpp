@@ -36,8 +36,8 @@ int main()
    {
       updateWindowOne(disp, cpu);
 
-      std::string ps = exec("ps -aux");
-      mvwprintw(menu.getWin(), 1, 2, ps.c_str());
+      System ps = exec("ps -aux");
+      //mvwprintw(menu.getWin(), 1, 2, ps.c_str());
 
       wrefresh(menu.getWin());
       wrefresh(disp.getWin());

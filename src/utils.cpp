@@ -17,8 +17,10 @@ void displayElement(WindowWrap &disp, int row, int col, std::string element, fla
    }
 }
 
-std::string exec(const char *cmd)
+System exec(const char *cmd)
 {
+   System sys;
+   
    std::array<char, 128> buffer;
    std::string result;
    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
@@ -28,7 +30,10 @@ std::string exec(const char *cmd)
    }
    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
    {
+      SystemProcess sp;
+      sp.parse(buffer.data());
+      sys.add(sp);
       result += buffer.data();
    }
-   return result;
+   return sys;
 }

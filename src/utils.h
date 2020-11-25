@@ -35,5 +35,5 @@ namespace flag
 } // namespace flag
 
 void displayElement(WindowWrap &, int, int, std::string, flag::print, flag::color);
-std::string exec(const char *);
+System exec(const char *);
 #endif

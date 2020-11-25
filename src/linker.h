@@ -12,6 +12,7 @@
 
 #include "cpu.h"
 #include "window_wrap.h"
+#include "system.h"
 #include "init.h"
 #include "runtime.h"
 #include "utils.h"
