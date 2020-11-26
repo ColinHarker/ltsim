@@ -1,4 +1,13 @@
-#include "linker.h"
+#include <ncurses.h>
+#include <unistd.h>
+#include <iomanip>
+#include <sys/ioctl.h>
+
+#include "cpu.h"
+#include "window.h"
+#include "init.h"
+#include "utils.h"
+#include "runtime.h"
 
 int main()
 {
@@ -37,7 +46,9 @@ int main()
         updateWindowOne(disp, cpu);
 
         System ps = exec("ps -aux");
-        // mvwprintw(menu.getWin(), 1, 2, ps.c_str());
+
+        displaySystemProcesses(menu, ps);
+        // mvwprintw(menu.getWin(), 1, 2, ps.print());
 
         wrefresh(menu.getWin());
         wrefresh(disp.getWin());

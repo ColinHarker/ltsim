@@ -1,12 +1,15 @@
 #ifndef SYSTEM_PROCESS_H
 #define SYSTEM_PROCESS_H
 
-#include "linker.h"
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
 
 class SystemProcess
 {
 private:
-    std::string user, pid, apu, mem, vsz, rss, tty, stat, start, time, command;
+    std::string user, pid, cpu, mem, vsz, rss, tty, stat, start, time, command;
 
 public:
     SystemProcess();
@@ -15,6 +18,8 @@ public:
                   std::string, std::string, std::string);
 
     void parse(const char*);
+    void print();
+    std::string toString();
 };
 
 #endif

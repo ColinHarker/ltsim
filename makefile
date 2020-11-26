@@ -39,8 +39,6 @@ clean:
 	@-rm -f main
 	@-rm -rf obj
 
-test: test
-	./test
 
 run:  main
 	./main

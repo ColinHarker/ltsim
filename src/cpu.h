@@ -2,9 +2,8 @@
 #define CPU_H
 
 #include <fstream>
-#include <iostream>
+#include <limits>
 #include <numeric>
-#include <unistd.h>
 #include <vector>
 
 class CpuReader

@@ -43,3 +43,8 @@ void displayCpuLevel(WindowWrap& disp, float util)
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
     mvwprintw(disp.getWin(), 3, 42, ss.str().c_str());
 }
+
+void displaySystemProcesses(WindowWrap& disp, System& sys)
+{
+    sys.display(disp);
+}

@@ -1,4 +1,4 @@
-#include "linker.h"
+#include "cpu.h"
 
 CpuReader::CpuReader() { parseModelName(); }
 

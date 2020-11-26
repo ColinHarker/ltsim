@@ -1,7 +1,7 @@
 #ifndef WINDOW_WRAP_H
 #define WINDOW_WRAP_H
 
-#include "linker.h"
+#include "ncurses.h"
 
 class WindowWrap
 {

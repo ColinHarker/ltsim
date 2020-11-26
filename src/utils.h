@@ -15,7 +15,12 @@ std::cerr << "Program not built for apple os" << '\n';
 exit(1);
 #endif
 
-#include "linker.h"
+#include <string>
+#include <array>
+#include <memory>
+
+#include "window.h"
+#include "system.h"
 
 namespace flag
 {
