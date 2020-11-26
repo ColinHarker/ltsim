@@ -7,12 +7,12 @@ class WindowWrap
 {
 private:
     int height, width, start_x, start_y;
-    WINDOW *win;
+    WINDOW* win;
     void createWindow();
 
 public:
     WindowWrap(int h, int w, int x, int y);
-    WINDOW *getWin();
+    WINDOW* getWin();
     ~WindowWrap() {}
 };
 #endif

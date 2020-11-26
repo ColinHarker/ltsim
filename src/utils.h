@@ -19,21 +19,22 @@ exit(1);
 
 namespace flag
 {
-   enum color
-   {
-      none,
-      green,
-      yellow,
-      red
-   };
+enum color
+{
+    none,
+    green,
+    yellow,
+    red
+};
 
-   enum print
-   {
-      use_color,
-      standard
-   };
+enum print
+{
+    use_color,
+    standard
+};
 } // namespace flag
 
-void displayElement(WindowWrap &, int, int, std::string, flag::print, flag::color);
-System exec(const char *);
+void displayElement(WindowWrap&, int, int, std::string, flag::print,
+                    flag::color);
+System exec(const char*);
 #endif

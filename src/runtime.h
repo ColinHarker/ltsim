@@ -3,7 +3,7 @@
 
 #include "linker.h"
 
-void updateWindowOne(WindowWrap &, CpuReader &);
-void displayCpuLevel(WindowWrap &, float);
+void updateWindowOne(WindowWrap&, CpuReader&);
+void displayCpuLevel(WindowWrap&, float);
 
 #endif

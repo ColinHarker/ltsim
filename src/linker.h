@@ -11,7 +11,8 @@
 #include <thread>
 
 #include "cpu.h"
-#include "window_wrap.h"
+#include "window.h"
+#include "system-process.h"
 #include "system.h"
 #include "init.h"
 #include "runtime.h"

@@ -12,8 +12,8 @@ INCLUDES := $(wildcard src/*.h)
 OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
 
 # Compile Tests
-# test: obj/test.o $(OBJECTS)
-#	$(CC) $(CFLAGS) obj/test.o $(OBJECTS) -o $@ $(LDFLAGS)
+test: obj/test.o $(OBJECTS)
+	$(CC) $(CFLAGS) obj/test.o $(OBJECTS) -o $@ $(LDFLAGS)
 
 # Compile main
 main: obj/main.o $(OBJECTS)
@@ -38,6 +38,9 @@ clean:
 	@-rm -f test
 	@-rm -f main
 	@-rm -rf obj
+
+test: test
+	./test
 
 run:  main
 	./main
