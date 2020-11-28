@@ -39,6 +39,11 @@ enum print
 };
 } // namespace flag
 
+struct data
+{
+    float cpu, mem, swap;
+};
+
 void displayElement(WindowWrap&, int, int, std::string, flag::print,
                     flag::color);
 System exec(const char*);

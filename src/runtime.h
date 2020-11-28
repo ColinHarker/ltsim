@@ -7,7 +7,7 @@
 #include "utils.h"
 
 void updateWindowOne(WindowWrap&, CpuReader&);
-void displayCpuLevel(WindowWrap&, float);
-void displaySystemProcesses(WindowWrap&, System&);
+void displayCpuLevel(WindowWrap&, float, std::string, int);
+void displaySystemProcesses(WindowWrap&);
 
 #endif

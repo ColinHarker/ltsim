@@ -1,3 +1,4 @@
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ColinHarker/ltsim.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ColinHarker/ltsim/context:cpp)
 
 <!-- PROJECT LOGO -->
 <br />

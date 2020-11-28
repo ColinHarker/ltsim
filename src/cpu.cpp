@@ -5,8 +5,8 @@ CpuReader::CpuReader() { parseModelName(); }
 std::vector<size_t> CpuReader::retrieve_cpu_times()
 {
 
-    std::ifstream proc_stat("/proc/stat");
-    proc_stat.ignore(5, ' '); // Skip the 'cpu' prefix.
+    std::ifstream proc_stat("/proc/stat"); // opening a filestream at /proc/stat
+    proc_stat.ignore(5, ' ');              // Skip the 'cpu' prefix.
     std::vector<size_t> times;
 
     for (size_t time; proc_stat >> time; times.push_back(time))
@@ -53,12 +53,13 @@ void CpuReader::parseModelName()
 {
     std::ifstream proc_cpuinfo("/proc/cpuinfo");
     proc_cpuinfo.seekg(std::ios::beg);
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; ++i) // skip the first 4 lines of /cpuinfo
     {
         proc_cpuinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    // proc_cpuinfo.ignore();
     std::string mn;
+
+    // skip the first 13 characters of the cpu model name
     proc_cpuinfo.ignore(13);
     std::getline(proc_cpuinfo, mn);
 
@@ -76,6 +77,8 @@ void CpuReader::parseVersion()
     std::ifstream proc_cpuinfo("/proc/version");
     std::string ret;
     std::getline(proc_cpuinfo, ret);
+
+    // only grabbing the information wanted from /version
     std::string vers = ret.substr(0, 41);
     version = vers;
 }

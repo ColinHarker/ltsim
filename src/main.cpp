@@ -12,17 +12,18 @@
 int main()
 {
 
-    if (!init())
+    if (!init()) // ncurses initialization, fails if terminal not supported
     {
         return EXIT_FAILURE;
     }
 
     struct winsize w;
+    CpuReader cpu;
+    bool running = true;
+
     ioctl(0, TIOCGWINSZ, &w);
     const int T_ROWS = w.ws_row;
     const int T_COLS = w.ws_col;
-
-    bool running = true;
 
     WindowWrap disp(T_ROWS / 2, T_COLS / 2, 0, 0);
     WindowWrap disp_2(T_ROWS / 2, T_COLS / 2, 0, T_COLS / 2);
@@ -31,26 +32,23 @@ int main()
     refresh();
 
     box(disp_2.getWin(), 0, 0);
-    box(menu.getWin(), 0, 0);
 
     wrefresh(disp.getWin());
     wrefresh(disp_2.getWin());
     wrefresh(menu.getWin());
 
-    CpuReader cpu;
-
+    // display cpu model above graph
     displayElement(disp, 2, 2, cpu.getModelName(), flag::standard, flag::none);
 
     while (running)
     {
-        updateWindowOne(disp, cpu);
+        updateWindowOne(disp, cpu); // window that contains cpu utiliation
 
-        System ps = exec("ps -aux");
+        displaySystemProcesses(menu);
 
-        displaySystemProcesses(menu, ps);
-        // mvwprintw(menu.getWin(), 1, 2, ps.print());
-
+        refresh();
         wrefresh(menu.getWin());
+        wrefresh(disp_2.getWin());
         wrefresh(disp.getWin());
         sleep(1);
     }

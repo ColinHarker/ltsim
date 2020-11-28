@@ -23,32 +23,34 @@ void SystemProcess::parse(const char* buffer)
         command += word;
     }
 
-    if (command.length() > 80)
+    if (command.length() > 70)
     {
-        command = command.substr(1, 80) + "...";
+        command = command.substr(1, 70) + "...";
     }
 }
 
 SystemProcess::SystemProcess(){};
 
-void SystemProcess::print()
-{
-    std::cout << std::setw(5) << user << " " << std::setw(5) << pid << " "
-              << std::setw(5) << cpu << " " << std::setw(5) << mem << " "
-              << std::setw(7) << vsz << " " << std::setw(6) << rss << " "
-              << std::setw(5) << tty << " " << std::setw(5) << stat << " "
-              << std::setw(5) << start << " " << std::setw(5) << time << " "
-              << command << std::endl;
-}
+void SystemProcess::print() { std::cout << this->toString(); }
 
 std::string SystemProcess::toString()
 {
     std::ostringstream oss;
-    oss << std::setw(5) << user << " " << std::setw(5) << pid << " "
-        << std::setw(5) << cpu << " " << std::setw(5) << mem << " "
+    oss << std::setw(5) << cpu << " " << std::setw(5) << mem << " "
+        << std::setw(5) << user << " " << std::setw(5) << pid << " "
         << std::setw(7) << vsz << " " << std::setw(6) << rss << " "
         << std::setw(5) << tty << " " << std::setw(5) << stat << " "
         << std::setw(5) << start << " " << std::setw(5) << time << " "
         << command << std::endl;
     return oss.str();
 }
+
+float SystemProcess::getCpuAsFloat()
+{
+    float ret = atoi(cpu.c_str());
+    return ret;
+}
+
+std::string SystemProcess::getCpuAsString() { return cpu; }
+
+void SystemProcess::setCpu(std::string str) { cpu = str; }
