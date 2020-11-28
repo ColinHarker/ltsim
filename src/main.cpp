@@ -18,7 +18,7 @@ int main()
     }
 
     struct winsize w;
-    CpuReader cpu;
+    Cpu cpu;
     bool running = true;
 
     ioctl(0, TIOCGWINSZ, &w);

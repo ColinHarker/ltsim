@@ -1,15 +1,18 @@
 #include "runtime.h"
 
-void updateWindowOne(WindowWrap& disp, CpuReader& cpu)
+void updateWindowOne(WindowWrap& disp, Cpu& cpu)
 {
     displayElement(disp, 0, 2, cpu.getVersion(), flag::standard, flag::none);
 
-    float util = cpu.run();
-    // data util = cpu.run();
+    cpu.run();
+    float util = cpu.getCpu().getUtil();
+    std::vector<CpuReader> core = cpu.getCores();
 
     displayCpuLevel(disp, util, "CPU", 3);
     displayCpuLevel(disp, util, "MEM", 4);
     displayCpuLevel(disp, util, "SWAP", 5);
+
+    // displayCpuCores();
 }
 
 void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y)

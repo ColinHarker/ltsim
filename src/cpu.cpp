@@ -1,55 +1,20 @@
 #include "cpu.h"
 
-CpuReader::CpuReader() { parseModelName(); }
-
-std::vector<size_t> CpuReader::retrieve_cpu_times()
+Cpu::Cpu()
 {
-
-    std::ifstream proc_stat("/proc/stat"); // opening a filestream at /proc/stat
-    proc_stat.ignore(5, ' ');              // Skip the 'cpu' prefix.
-    std::vector<size_t> times;
-
-    for (size_t time; proc_stat >> time; times.push_back(time))
-        ;
-
-    return times;
+    this->cpu.run(0);
+    this->parseModelName();
 }
 
-bool CpuReader::get_cpu_times()
-{
+void Cpu::run() { this->cpu.run(0); }
 
-    const std::vector<size_t> cpu_times = retrieve_cpu_times();
+CpuReader Cpu::getCpu() { return this->cpu; }
 
-    if (cpu_times.size() < 4)
-        return false;
+std::vector<CpuReader> Cpu::getCores() { return this->cores; }
 
-    CpuReader::idle_time = cpu_times[3];
-    total_time = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
+std::string Cpu::getModelName() { return cpu.modelName; }
 
-    return true;
-}
-
-float CpuReader::run()
-{
-    if (get_cpu_times())
-    {
-        const float idle_time_delta = idle_time - previous_idle_time;
-        const float total_time_delta = total_time - previous_total_time;
-        const float utilization =
-            100.0 * (1.0 - idle_time_delta / total_time_delta);
-        previous_idle_time = idle_time;
-        previous_total_time = total_time;
-        return utilization;
-    }
-    else
-    {
-        return -1;
-    }
-}
-
-std::string CpuReader::getModelName() { return modelName; }
-
-void CpuReader::parseModelName()
+void Cpu::parseModelName()
 {
     std::ifstream proc_cpuinfo("/proc/cpuinfo");
     proc_cpuinfo.seekg(std::ios::beg);
@@ -63,22 +28,11 @@ void CpuReader::parseModelName()
     proc_cpuinfo.ignore(13);
     std::getline(proc_cpuinfo, mn);
 
-    modelName = mn;
+    this->cpu.setModelName(mn);
 }
 
-std::string CpuReader::getVersion()
+std::string Cpu::getVersion()
 {
-    parseVersion();
-    return version;
-}
-
-void CpuReader::parseVersion()
-{
-    std::ifstream proc_cpuinfo("/proc/version");
-    std::string ret;
-    std::getline(proc_cpuinfo, ret);
-
-    // only grabbing the information wanted from /version
-    std::string vers = ret.substr(0, 41);
-    version = vers;
+    this->cpu.parseVersion();
+    return cpu.version;
 }
