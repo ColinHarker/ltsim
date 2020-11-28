@@ -7,7 +7,7 @@
 
 </p>
 
-
+[![Build Status](https://travis-ci.org/ColinHarker/ltsim.svg?branch=master)](https://travis-ci.org/ColinHarker/ltsim)
 [![Build status](https://ci.appveyor.com/api/projects/status/5obqoljcf5d1wu35?svg=true)](https://ci.appveyor.com/project/ColinHarker/ltsim)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ColinHarker/ltsim.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ColinHarker/ltsim/context:cpp)
 
