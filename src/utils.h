@@ -5,16 +5,6 @@
 #define APP_NAME "ltsim"
 #define APP_NAME_FULL "Linux Terminal System Information Monitor"
 
-#ifdef _WIN32
-std::cerr << "Program not built for windows os" << '\n';
-exit(1);
-#endif
-
-#ifdef __APPLE__
-std::cerr << "Program not built for apple os" << '\n';
-exit(1);
-#endif
-
 #include <string>
 #include <array>
 #include <memory>

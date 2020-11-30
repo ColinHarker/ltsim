@@ -1,6 +1,16 @@
 #ifndef INIT_H
 #define INIT_H
 
+#ifdef _WIN32
+std::cerr << "Program not built for windows os" << '\n';
+exit(1);
+#endif
+
+#ifdef __APPLE__
+std::cerr << "Program not built for apple os" << '\n';
+exit(1);
+#endif
+
 #include <ncurses.h>
 
 bool init()
