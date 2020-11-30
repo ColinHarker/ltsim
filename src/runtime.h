@@ -9,8 +9,8 @@
 #include "utils.h"
 
 void updateCpuWindow(WindowWrap&, Cpu&);
-void displayCpuLevel(WindowWrap&, float, std::string, int, int);
-void displayCpuCores(WindowWrap&, std::vector<CpuReader>, int);
+void displayCpuLevel(WindowWrap&, float, std::string, int, int, flag::coreType);
+void displayCpuCores(WindowWrap&, std::vector<CpuReader>, int, flag::coreType);
 void displaySystemProcesses(WindowWrap&);
 
 #endif

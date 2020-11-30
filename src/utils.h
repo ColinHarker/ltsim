@@ -37,6 +37,12 @@ enum print
     use_color,
     standard
 };
+
+enum coreType
+{
+    cpu,
+    core
+};
 } // namespace flag
 
 struct data
@@ -46,5 +52,6 @@ struct data
 
 void displayElement(WindowWrap&, int, int, std::string, flag::print,
                     flag::color);
+void displayPercentColor(WindowWrap&, float, std::string, int, int);
 System exec(const char*);
 #endif

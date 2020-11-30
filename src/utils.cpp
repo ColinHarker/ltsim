@@ -18,6 +18,27 @@ void displayElement(WindowWrap& disp, int row, int col, std::string element,
     }
 }
 
+void displayPercentColor(WindowWrap& disp, float percent, std::string str,
+                         int row, int col)
+{
+    if (percent == 0.0)
+    {
+        displayElement(disp, row, col, str, flag::standard, flag::none);
+    }
+    else if (percent < 60)
+    {
+        displayElement(disp, row, col, str, flag::use_color, flag::green);
+    }
+    else if (percent >= 60 && percent < 85)
+    {
+        displayElement(disp, row, col, str, flag::use_color, flag::yellow);
+    }
+    else
+    {
+        displayElement(disp, row, col, str, flag::use_color, flag::red);
+    }
+}
+
 System exec(const char* cmd)
 {
     System sys;

@@ -17,17 +17,12 @@ int main()
         return EXIT_FAILURE;
     }
 
-    struct winsize w;
     Cpu cpu;
     bool running = true;
 
-    ioctl(0, TIOCGWINSZ, &w);
-    const int T_ROWS = w.ws_row;
-    const int T_COLS = w.ws_col;
-
-    WindowWrap cpuInformationWindow(T_ROWS / 2, T_COLS / 2, 0, 0);
-    WindowWrap disp_2(T_ROWS / 2, T_COLS / 2, 0, T_COLS / 2);
-    WindowWrap systemProcessWindow((T_ROWS / 2) + 1, T_COLS, T_ROWS / 2, 0);
+    WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 0, 0);
+    WindowWrap disp_2(LINES / 2, COLS / 2, 0, COLS / 2);
+    WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
 
     refresh();
 

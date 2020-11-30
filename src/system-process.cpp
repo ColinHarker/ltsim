@@ -36,8 +36,7 @@ void SystemProcess::print() { std::cout << this->toString(); }
 std::string SystemProcess::toString()
 {
     std::ostringstream oss;
-    oss << std::setw(5) << cpu << " " << std::setw(5) << mem << " "
-        << std::setw(5) << user << " " << std::setw(5) << pid << " "
+    oss << std::setw(5) << user << " " << std::setw(5) << pid << " "
         << std::setw(7) << vsz << " " << std::setw(6) << rss << " "
         << std::setw(5) << tty << " " << std::setw(5) << stat << " "
         << std::setw(5) << start << " " << std::setw(5) << time << " "
@@ -52,5 +51,13 @@ float SystemProcess::getCpuAsFloat()
 }
 
 std::string SystemProcess::getCpuAsString() { return cpu; }
+
+float SystemProcess::getMemAsFloat()
+{
+    float ret = atoi(mem.c_str());
+    return ret;
+}
+
+std::string SystemProcess::getMemAsString() { return mem; }
 
 void SystemProcess::setCpu(std::string str) { cpu = str; }

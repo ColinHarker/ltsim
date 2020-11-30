@@ -27,14 +27,21 @@ void System::sort()
 void System::display(WindowWrap& disp)
 {
     std::string titles =
-        "  CPU   MEM  USER   PID     VSZ    RSS   TTY  STAT START  "
+        " CPU   MEM  USER   PID     VSZ    RSS   TTY  STAT START  "
         "TIME COMMAND";
 
     mvwprintw(disp.getWin(), 1, 0, titles.c_str());
     int i = 2;
     for (SystemProcess sp : processes)
     {
-        mvwprintw(disp.getWin(), i, 0, sp.toString().c_str());
+        float cpu = sp.getCpuAsFloat();
+        float mem = sp.getMemAsFloat();
+        std::string cpuStr = sp.getCpuAsString();
+        std::string memStr = sp.getMemAsString();
+
+        displayPercentColor(disp, cpu, cpuStr, i, 1);
+        displayPercentColor(disp, mem, memStr, i, 7);
+        mvwprintw(disp.getWin(), i, 12, sp.toString().c_str());
         i++;
     }
     wclrtobot(disp.getWin());

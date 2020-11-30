@@ -1,11 +1,14 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+class System;
+
 #include <vector>
 #include <algorithm>
 
 #include "window.h"
 #include "system-process.h"
+#include "utils.h"
 
 class System
 {
