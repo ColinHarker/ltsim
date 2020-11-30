@@ -30,11 +30,11 @@ void System::display(WindowWrap& disp)
         "  CPU   MEM  USER   PID     VSZ    RSS   TTY  STAT START  "
         "TIME COMMAND";
 
-    mvwprintw(disp.getWin(), 1, 2, titles.c_str());
+    mvwprintw(disp.getWin(), 1, 0, titles.c_str());
     int i = 2;
     for (SystemProcess sp : processes)
     {
-        mvwprintw(disp.getWin(), i, 2, sp.toString().c_str());
+        mvwprintw(disp.getWin(), i, 0, sp.toString().c_str());
         i++;
     }
     wclrtobot(disp.getWin());

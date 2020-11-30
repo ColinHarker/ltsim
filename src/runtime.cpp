@@ -1,29 +1,31 @@
 #include "runtime.h"
 
-void updateWindowOne(WindowWrap& disp, Cpu& cpu)
+void updateCpuWindow(WindowWrap& disp, Cpu& cpu)
 {
-    displayElement(disp, 0, 2, cpu.getVersion(), flag::standard, flag::none);
+    // display linux version
+    displayElement(disp, 0, 0, cpu.getVersion(), flag::standard, flag::none);
 
     cpu.run();
     float util = cpu.getCpu().getUtil();
     std::vector<CpuReader> core = cpu.getCores();
 
-    displayCpuLevel(disp, util, "CPU", 3);
-    displayCpuLevel(disp, util, "MEM", 4);
-    displayCpuLevel(disp, util, "SWAP", 5);
+    displayCpuLevel(disp, util, "CPU", 3, 0);
+    displayCpuLevel(disp, util, "MEM", 4, 0);
+    displayCpuLevel(disp, util, "SWAP", 5, 0);
 
-    // displayCpuCores();
+    displayCpuCores(disp, core, 7);
 }
 
-void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y)
+void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
+                     int start_x)
 {
-    displayElement(disp, y, 2, label, flag::standard, flag::none);
-    displayElement(disp, y, 7, "[", flag::standard, flag::none);
+    displayElement(disp, y, start_x, label, flag::standard, flag::none);
+    displayElement(disp, y, start_x + 5, "[", flag::standard, flag::none);
 
-    int level = static_cast<int>((32 * (util / 100)) + 8);
+    int level = static_cast<int>((32 * (util / 100)) + start_x + 6);
     for (int i = 0; i < 32; i++)
     {
-        int offset = i + 8;
+        int offset = i + start_x + 6;
         if (offset > level)
         {
             mvwprintw(disp.getWin(), y, offset, " ");
@@ -43,11 +45,22 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y)
         }
         wrefresh(disp.getWin());
     }
-    mvwprintw(disp.getWin(), y, 40, "]");
+    mvwprintw(disp.getWin(), y, start_x + 38, "]");
 
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
-    mvwprintw(disp.getWin(), y, 42, ss.str().c_str());
+    mvwprintw(disp.getWin(), y, start_x + 40, ss.str().c_str());
+}
+
+void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y)
+{
+    int i = 1;
+    for (auto core : cores)
+    {
+        displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y, 0);
+        y++;
+        i++;
+    }
 }
 
 void displaySystemProcesses(WindowWrap& disp)

@@ -4,19 +4,6 @@ void CpuReader::setModelName(std::string mn) { this->modelName = mn; }
 
 float CpuReader::getUtil() { return utilization; }
 
-void CpuReader::parseCores()
-{
-    // find number of cores
-    int coreCount = 8;
-    // loop and run on each core
-    for (int i = 1; i <= coreCount; i++)
-    {
-        CpuReader cpr;
-        cpr.run(i);
-        this->cores.emplace_back(cpr);
-    }
-}
-
 std::vector<size_t> CpuReader::retrieve_cpu_times(int i)
 {
 
@@ -66,15 +53,4 @@ void CpuReader::run(int i)
     {
         this->utilization = -1;
     }
-}
-
-void CpuReader::parseVersion()
-{
-    std::ifstream proc_cpuinfo("/proc/version");
-    std::string ret;
-    std::getline(proc_cpuinfo, ret);
-
-    // only grabbing the information wanted from /version
-    std::string vers = ret.substr(0, 41);
-    version = vers;
 }

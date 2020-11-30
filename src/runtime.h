@@ -8,8 +8,9 @@
 #include "window.h"
 #include "utils.h"
 
-void updateWindowOne(WindowWrap&, Cpu&);
-void displayCpuLevel(WindowWrap&, float, std::string, int);
+void updateCpuWindow(WindowWrap&, Cpu&);
+void displayCpuLevel(WindowWrap&, float, std::string, int, int);
+void displayCpuCores(WindowWrap&, std::vector<CpuReader>, int);
 void displaySystemProcesses(WindowWrap&);
 
 #endif

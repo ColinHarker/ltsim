@@ -2,6 +2,9 @@
 #define CPU_H
 
 #include <vector>
+#include <array>
+#include <memory>
+#include <iostream>
 
 #include "cpu-reader.h"
 
@@ -9,8 +12,11 @@ class Cpu
 {
 private:
     CpuReader cpu;
+    int numCores = -1;
     std::vector<CpuReader> cores;
     void parseModelName();
+    void parseVersion();
+    void parseCores();
 
 public:
     Cpu();
@@ -19,6 +25,7 @@ public:
     CpuReader getCpu();
     std::vector<CpuReader> getCores();
     std::string getModelName();
+    int getNumberCores();
 };
 
 #endif
