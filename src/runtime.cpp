@@ -1,17 +1,21 @@
 #include "runtime.h"
 
-void updateCpuWindow(WindowWrap& disp, Cpu& cpu)
+void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)
 {
     // display linux version
     displayElement(disp, 0, 0, cpu.getVersion(), flag::standard, flag::none);
 
     cpu.run();
+    memory.run();
+
     float util = cpu.getCpu().getUtil();
+    float mem = memory.getMemUsage();
+    float swap = memory.getSwapUsage();
     std::vector<CpuReader> core = cpu.getCores();
 
     displayCpuLevel(disp, util, "CPU", 3, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, util, "MEM", 4, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, util, "SWAP", 5, 0, flag::coreType::cpu);
+    displayCpuLevel(disp, mem, "MEM", 4, 0, flag::coreType::cpu);
+    displayCpuLevel(disp, swap, "SWAP", 5, 0, flag::coreType::cpu);
 
     displayCpuCores(disp, core, 7, flag::coreType::core);
 }
@@ -34,16 +38,7 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
         }
         else
         {
-            // less than 60% cpu utilization
-            if (util < 60)
-                displayElement(disp, y, offset, "|", flag::use_color,
-                               flag::green);
-            else if (util >= 60 && util < 85)
-                displayElement(disp, y, offset, "|", flag::use_color,
-                               flag::yellow);
-            else
-                displayElement(disp, y, offset, "|", flag::use_color,
-                               flag::red);
+            displayPercentColor(disp, util, "|", y, offset);
         }
         wrefresh(disp.getWin());
     }
@@ -51,7 +46,7 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
 
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
-    mvwprintw(disp.getWin(), y, start_x + displayLength + 8, ss.str().c_str());
+    displayPercentColor(disp, util, ss.str(), y, start_x + displayLength + 8);
 }
 
 void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,

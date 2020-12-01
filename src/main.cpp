@@ -42,6 +42,7 @@ int main()
     }
 
     Cpu cpu;
+    RandomAccessMemory mem;
     bool running = true;
 
     WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 0, 0);
@@ -62,8 +63,8 @@ int main()
 
     while (running)
     {
-        updateCpuWindow(cpuInformationWindow,
-                        cpu); // window that contains cpu utiliation
+        updateCpuWindow(cpuInformationWindow, cpu,
+                        mem); // window that contains cpu utiliation
 
         displaySystemProcesses(systemProcessWindow);
 

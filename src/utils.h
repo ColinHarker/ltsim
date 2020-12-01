@@ -33,6 +33,13 @@ enum coreType
     cpu,
     core
 };
+enum memType
+{
+    memTotal,
+    memAvailable,
+    swapTotal,
+    swapFree
+};
 } // namespace flag
 
 struct data
