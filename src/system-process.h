@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <ncurses.h>
 
 class SystemProcess
 {

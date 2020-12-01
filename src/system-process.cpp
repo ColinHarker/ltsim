@@ -23,9 +23,11 @@ void SystemProcess::parse(const char* buffer)
         command += word;
     }
 
-    if (command.length() > 70)
+    size_t bufferSize = COLS - 63;
+
+    if (command.length() > bufferSize)
     {
-        command = command.substr(1, 70) + "...";
+        command = command.substr(1, bufferSize);
     }
 }
 
@@ -36,7 +38,7 @@ void SystemProcess::print() { std::cout << this->toString(); }
 std::string SystemProcess::toString()
 {
     std::ostringstream oss;
-    oss << std::setw(5) << user << " " << std::setw(5) << pid << " "
+    oss << std::setw(5) << user << "" << std::setw(5) << pid << " "
         << std::setw(7) << vsz << " " << std::setw(6) << rss << " "
         << std::setw(5) << tty << " " << std::setw(5) << stat << " "
         << std::setw(5) << start << " " << std::setw(5) << time << " "
