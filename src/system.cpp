@@ -39,7 +39,7 @@ void System::display(WindowWrap& disp)
         std::string cpuStr = sp.getCpuAsString();
         std::string memStr = sp.getMemAsString();
 
-        displayPercentColor(disp, cpu, cpuStr, i, 1);
+        displayPercentColor(disp, cpu, cpuStr + " ", i, 1);
         displayPercentColor(disp, mem, memStr, i, 7);
         mvwprintw(disp.getWin(), i, 12, sp.toString().c_str());
         i++;

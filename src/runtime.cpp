@@ -46,7 +46,8 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
 
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
-    displayPercentColor(disp, util, ss.str(), y, start_x + displayLength + 8);
+    displayPercentColor(disp, util, ss.str() + " ", y,
+                        start_x + displayLength + 8);
 }
 
 void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
