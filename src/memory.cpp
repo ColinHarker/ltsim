@@ -45,14 +45,13 @@ void RandomAccessMemory::run()
 
 float RandomAccessMemory::getMemUsage()
 {
-    memUsagePercent = 100 * (1 - (static_cast<double>(memAvailable) /
-                                  static_cast<double>(memTotal)));
+    memUsagePercent = 100.f * (1.f - (static_cast<double>(memAvailable) /
+                                      static_cast<double>(memTotal)));
     return memUsagePercent;
 }
 float RandomAccessMemory::getSwapUsage()
 {
-    swapUsagePercent =
-        100 *
-        (1 - (static_cast<double>(swapFree) / static_cast<double>(swapTotal)));
+    swapUsagePercent = 100.f * (1.f - (static_cast<double>(swapFree) /
+                                       static_cast<double>(swapTotal)));
     return swapUsagePercent;
 }

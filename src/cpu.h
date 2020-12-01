@@ -17,6 +17,7 @@ private:
     void parseModelName();
     void parseVersion();
     void parseCores();
+    void addCores();
 
 public:
     Cpu();

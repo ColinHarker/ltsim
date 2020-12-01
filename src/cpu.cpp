@@ -6,6 +6,8 @@ Cpu::Cpu()
     parseModelName();
     parseVersion();
     numCores = getNumberCores();
+    addCores();
+    parseCores();
 }
 
 void Cpu::run()
@@ -56,15 +58,21 @@ int Cpu::getNumberCores()
     else
         return -1;
 }
-
-void Cpu::parseCores()
+void Cpu::addCores()
 {
-    cores.clear();
     for (int i = 1; i <= numCores; i++)
     {
         CpuReader cpr;
         cpr.run(i);
         cores.emplace_back(cpr);
+    }
+}
+void Cpu::parseCores()
+{
+    int i = 1;
+    for (auto& core : cores)
+    {
+        core.run(i++);
     }
 }
 
