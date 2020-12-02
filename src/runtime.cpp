@@ -45,7 +45,7 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
     mvwprintw(disp.getWin(), y, start_x + displayLength + 6, "]");
 
     std::ostringstream ss;
-    ss << std::setprecision(2) << std::setw(4) << std::fixed << util << " %%";
+    ss << std::setprecision(2) << std::setw(4) << std::fixed << util << "%%";
     displayPercentColor(disp, util, ss.str() + " ", y,
                         start_x + displayLength + 8);
 }
