@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "cpu.h"
 
 Cpu::Cpu()

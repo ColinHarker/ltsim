@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef SYSTEM_H
 #define SYSTEM_H
 

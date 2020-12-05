@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "runtime.h"
 
 void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)

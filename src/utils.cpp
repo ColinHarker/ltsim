@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "utils.h"
 
 void displayElement(WindowWrap& disp, int row, int col, std::string element,

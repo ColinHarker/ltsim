@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef WINDOW_WRAP_H
 #define WINDOW_WRAP_H
 

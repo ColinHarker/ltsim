@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef CPU_H
 #define CPU_H
 

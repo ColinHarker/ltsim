@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef CPU_READER_H
 #define CPU_READER_H
 
