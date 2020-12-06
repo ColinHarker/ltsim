@@ -58,17 +58,9 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
     int i = 1;
     for (auto core : cores)
     {
-        if ((i % 2) != 0)
-        {
-            displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y,
-                            0, ct);
-        }
-        else
-        {
-            displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y,
-                            COLS / 4, ct);
-            y++;
-        }
+        displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y, 0,
+                        ct);
+        y++;
         i++;
     }
 }
