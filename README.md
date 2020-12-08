@@ -1,12 +1,6 @@
-<!-- satisfy super linter -->
-# 
+<!-- SATISFY SUPER LINTER -->
+# LTSIM ( Linux Terminal System Information Monitor)
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-
-  <h3 align="center">LTSIM ( Linux Terminal System Information Monitor)</h3>
-
-</p>
 
 ![Super-Linter](https://github.com/ColinHarker/ltsim/workflows/Super-Linter/badge.svg)
 [![Build Status](https://travis-ci.com/ColinHarker/ltsim.svg?branch=master)](https://travis-ci.com/ColinHarker/ltsim)
