@@ -68,6 +68,15 @@ int main()
 
         displaySystemProcesses(systemProcessWindow);
 
+        displayElement(disp_2, 1, 1, "STORAGE: 0.0GB / 250.98GB",
+                       flag::print_type::standard, flag::color::none);
+
+        // list size of files
+        // du -h --max-depth=1 | sort -hr
+
+        // display storage mounts
+        // df
+
         refresh();
         wrefresh(systemProcessWindow.getWin());
         wrefresh(disp_2.getWin());
