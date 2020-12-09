@@ -59,7 +59,7 @@ void parseStorageInformation(){
 
 }
 
-static std::vector<const char*> parseCommandLineOutput(const char* cmd){
+std::vector<const char*> parseCommandLineOutput(const char* cmd){
     std::vector<const char*> buffer_container;
 
     std::array<char, 512> buffer;
