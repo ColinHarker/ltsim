@@ -56,7 +56,7 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
                      flag::coreType ct)
 {
     int i = 1;
-    for (auto core : cores)
+    for (auto& core : cores)
     {
         displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y, 0,
                         ct);
@@ -65,9 +65,11 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
     }
 }
 
+void displayStorageInformation(WindowWrap& disp) { parseStorageInformation(); }
+
 void displaySystemProcesses(WindowWrap& disp)
 {
-    System sys = exec("ps -aux");
+    System sys = parseSystemInformation();
     sys.remove(0); // removing the menu string
     sys.sort();
     sys.display(disp);

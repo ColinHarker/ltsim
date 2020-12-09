@@ -69,6 +69,8 @@ int main()
 
         displaySystemProcesses(systemProcessWindow);
 
+        displayStorageInformation(disp_2);
+
         displayElement(disp_2, 1, 1, "STORAGE: 0.0GB / 250.98GB",
                        flag::print_type::standard, flag::color::none);
 

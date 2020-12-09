@@ -41,9 +41,28 @@ void displayPercentColor(WindowWrap& disp, float percent, std::string str,
     }
 }
 
-System exec(const char* cmd)
+System parseSystemInformation()
 {
+    auto buffer_container = parseCommandLineOutput("ps -aux");
     System sys;
+    for (auto buffer : buffer_container)
+    {
+        SystemProcess sp;
+        sp.parse(buffer);
+        sys.add(sp);
+    }
+    return sys;
+}
+
+void parseStorageInformation()
+{
+    auto buffer_container =
+        parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
+}
+
+std::vector<const char*> parseCommandLineOutput(const char* cmd)
+{
+    std::vector<const char*> buffer_container;
 
     std::array<char, 512> buffer;
     std::string result;
@@ -54,9 +73,7 @@ System exec(const char* cmd)
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
     {
-        SystemProcess sp;
-        sp.parse(buffer.data());
-        sys.add(sp);
+        buffer_container.emplace_back(buffer.data());
     }
-    return sys;
+    return buffer_container;
 }

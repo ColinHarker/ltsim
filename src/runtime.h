@@ -15,5 +15,6 @@ void updateCpuWindow(WindowWrap&, Cpu&, RandomAccessMemory&);
 void displayCpuLevel(WindowWrap&, float, std::string, int, int, flag::coreType);
 void displayCpuCores(WindowWrap&, std::vector<CpuReader>, int, flag::coreType);
 void displaySystemProcesses(WindowWrap&);
+void displayStorageInformation(WindowWrap&);
 
 #endif

@@ -9,7 +9,7 @@ void TEST_1()
 {
     std::cout << "Testing system processes"
               << "\n";
-    System ps = exec("ps -aux");
+    System ps = parseSystemInformation();
     ps.print();
 }
 void TEST_2()
