@@ -36,8 +36,8 @@ SOFTWARE.
 int main()
 {
 
-    if (!init()) // ncurses initialization, fails if terminal not supported
-    {
+    if (!init()){
+// ncurses initialization, fails if terminal not supported
         return EXIT_FAILURE;
     }
 
