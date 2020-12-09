@@ -1,7 +1,7 @@
-name: Super-Linter
+name: Error Checks
 
 # Run this workflow every time a new commit pushed to your repository
-on: push
+on: [push]
 
 jobs:
   # Set the job key. The key is displayed as the job name
@@ -23,3 +23,11 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  formatting-check:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: clang-format Check
+      uses: jidicula/clang-format-action@v1.1.1
