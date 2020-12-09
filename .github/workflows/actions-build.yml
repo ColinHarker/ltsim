@@ -28,13 +28,16 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  formatting-check:
-    name: Formatting Check
+  clang-format-linter:
+    name: Clang Format Linter
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: clang-format Check
-      uses: jidicula/clang-format-action@v1.1.1
+    - uses: DoozyX/clang-format-lint-action@v0.11
+      with:
+        source: '.'
+        extensions: 'h,cpp'
+        clangFormatVersion: 11
 
   c-cpp:
     name: C/C++ CI
