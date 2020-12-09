@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "cpu-reader.h"
 
 void CpuReader::setModelName(std::string mn) { this->modelName = mn; }

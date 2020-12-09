@@ -1,3 +1,4 @@
+// Copyright (c) 2020 Colin Harker
 
 #include "system.h"
 #include "memory.h"

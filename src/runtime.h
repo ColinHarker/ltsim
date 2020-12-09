@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef RUNTIME_H
 #define RUNTIME_H
 

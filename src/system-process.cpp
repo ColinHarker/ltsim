@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "system-process.h"
 
 SystemProcess::SystemProcess(std::string t_user, std::string t_pid,

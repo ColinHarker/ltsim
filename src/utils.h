@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef UTILS_H
 #define UTILS_H
 
@@ -22,7 +24,7 @@ enum color
     red
 };
 
-enum print
+enum print_type
 {
     use_color,
     standard
@@ -47,7 +49,7 @@ struct data
     float cpu, mem, swap;
 };
 
-void displayElement(WindowWrap&, int, int, std::string, flag::print,
+void displayElement(WindowWrap&, int, int, std::string, flag::print_type,
                     flag::color);
 void displayPercentColor(WindowWrap&, float, std::string, int, int);
 System exec(const char*);

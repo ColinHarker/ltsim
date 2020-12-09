@@ -36,8 +36,9 @@ SOFTWARE.
 int main()
 {
 
-    if (!init()) // ncurses initialization, fails if terminal not supported
+    if (!init())
     {
+        // ncurses initialization, fails if terminal not supported
         return EXIT_FAILURE;
     }
 
@@ -67,6 +68,15 @@ int main()
                         mem); // window that contains cpu utiliation
 
         displaySystemProcesses(systemProcessWindow);
+
+        displayElement(disp_2, 1, 1, "STORAGE: 0.0GB / 250.98GB",
+                       flag::print_type::standard, flag::color::none);
+
+        // list size of files
+        // du -h --max-depth=1 | sort -hr
+
+        // display storage mounts
+        // df
 
         refresh();
         wrefresh(systemProcessWindow.getWin());

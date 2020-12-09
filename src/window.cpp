@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "window.h"
 
 WindowWrap::WindowWrap(int h, int w, int x, int y)

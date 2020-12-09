@@ -1,7 +1,9 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "utils.h"
 
 void displayElement(WindowWrap& disp, int row, int col, std::string element,
-                    flag::print flag, flag::color c)
+                    flag::print_type flag, flag::color c)
 {
     switch (flag)
     {

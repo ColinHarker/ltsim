@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #ifndef MEMORY_H
 #define MEMORY_H
 

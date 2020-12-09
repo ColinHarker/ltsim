@@ -1,3 +1,5 @@
+// Copyright (c) 2020 Colin Harker
+
 #include "memory.h"
 
 void RandomAccessMemory::parseMemInfo(std::string str,

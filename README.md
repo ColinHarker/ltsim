@@ -1,13 +1,9 @@
-
+<!-- SATISFY SUPER LINTER -->
+# LTSIM ( Linux Terminal System Information Monitor)
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
 
-  <h3 align="center">LTSIM ( Linux Terminal System Information Monitor)</h3>
-
-</p>
-
-[![Build Status](https://travis-ci.org/ColinHarker/ltsim.svg?branch=master)](https://travis-ci.org/ColinHarker/ltsim)
+![Actions Build](https://github.com/ColinHarker/ltsim/workflows/Actions%20Build/badge.svg?branch=master)
+[![Build Status](https://travis-ci.com/ColinHarker/ltsim.svg?branch=master)](https://travis-ci.com/ColinHarker/ltsim)
 [![Build status](https://ci.appveyor.com/api/projects/status/5obqoljcf5d1wu35?svg=true)](https://ci.appveyor.com/project/ColinHarker/ltsim)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ColinHarker/ltsim.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ColinHarker/ltsim/context:cpp)
 
@@ -43,18 +39,6 @@
 
 ![LTSSD](https://github.com/ColinHarker/ltssd/blob/master/ltssd_screen.PNG)
 
-<!--
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
--->
 
 ### Built With
 * [NCurses](https://invisible-island.net/ncurses/announce.html)
