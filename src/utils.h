@@ -52,5 +52,7 @@ struct data
 void displayElement(WindowWrap&, int, int, std::string, flag::print_type,
                     flag::color);
 void displayPercentColor(WindowWrap&, float, std::string, int, int);
-System exec(const char*);
+System parseSystemInformation();
+void parseStorageInformation();
+static std::vector<const char*> parseCommandLineOutput(const char*);
 #endif
