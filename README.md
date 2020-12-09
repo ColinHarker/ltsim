@@ -2,7 +2,7 @@
 # LTSIM ( Linux Terminal System Information Monitor)
 <!-- PROJECT LOGO -->
 
-![Super-Linter](https://github.com/ColinHarker/ltsim/workflows/Super-Linter/badge.svg)
+![Actions Build](https://github.com/ColinHarker/ltsim/workflows/Actions%20Build/badge.svg?branch=master)
 [![Build Status](https://travis-ci.com/ColinHarker/ltsim.svg?branch=master)](https://travis-ci.com/ColinHarker/ltsim)
 [![Build status](https://ci.appveyor.com/api/projects/status/5obqoljcf5d1wu35?svg=true)](https://ci.appveyor.com/project/ColinHarker/ltsim)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/ColinHarker/ltsim.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ColinHarker/ltsim/context:cpp)
