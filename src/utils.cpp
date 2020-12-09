@@ -2,7 +2,7 @@
 
 #include "utils.h"
 
-void displayElement(WindowWrap& disp, int row, int col,std::string element,
+void displayElement(WindowWrap& disp, int row, int col, std::string element,
                     flag::print_type flag, flag::color c)
 {
     switch (flag)
@@ -45,7 +45,7 @@ System parseSystemInformation()
 {
     auto buffer_container = parseCommandLineOutput("ps -aux");
     System sys;
-    for (auto buffer: buffer_container)
+    for (auto buffer : buffer_container)
     {
         SystemProcess sp;
         sp.parse(buffer);
@@ -54,12 +54,14 @@ System parseSystemInformation()
     return sys;
 }
 
-void parseStorageInformation(){
-    auto buffer_container = parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
-
+void parseStorageInformation()
+{
+    auto buffer_container =
+        parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
 }
 
-std::vector<const char*> parseCommandLineOutput(const char* cmd){
+std::vector<const char*> parseCommandLineOutput(const char* cmd)
+{
     std::vector<const char*> buffer_container;
 
     std::array<char, 512> buffer;

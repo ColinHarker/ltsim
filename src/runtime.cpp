@@ -65,9 +65,7 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
     }
 }
 
-void displayStorageInformation(WindowWrap& disp){
-    parseStorageInformation();
-}
+void displayStorageInformation(WindowWrap& disp) { parseStorageInformation(); }
 
 void displaySystemProcesses(WindowWrap& disp)
 {
