@@ -45,6 +45,7 @@ System parseSystemInformation()
 {
     auto buffer_container = parseCommandLineOutput("ps -aux");
     System sys;
+
     for (auto buffer : buffer_container)
     {
         SystemProcess sp;
@@ -60,9 +61,9 @@ void parseStorageInformation()
         parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
 }
 
-std::vector<const char*> parseCommandLineOutput(const char* cmd)
+std::vector<std::string> parseCommandLineOutput(const char* cmd)
 {
-    std::vector<const char*> buffer_container;
+    std::vector<std::string> buffer_container;
 
     std::array<char, 512> buffer;
     std::string result;
@@ -75,5 +76,6 @@ std::vector<const char*> parseCommandLineOutput(const char* cmd)
     {
         buffer_container.emplace_back(buffer.data());
     }
+
     return buffer_container;
 }

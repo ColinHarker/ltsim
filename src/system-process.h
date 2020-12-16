@@ -20,7 +20,7 @@ public:
                   std::string, std::string, std::string, std::string,
                   std::string, std::string, std::string);
 
-    void parse(const char*);
+    void parse(const std::string);
     void print();
     float getCpuAsFloat();
     float getMemAsFloat();

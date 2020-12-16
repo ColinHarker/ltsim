@@ -12,7 +12,7 @@ SystemProcess::SystemProcess(std::string t_user, std::string t_pid,
       tty(t_tty), stat(t_stat), start(t_start), time(t_time),
       command(t_command){};
 
-void SystemProcess::parse(const char* buffer)
+void SystemProcess::parse(const std::string buffer)
 {
 
     std::istringstream ss(buffer);

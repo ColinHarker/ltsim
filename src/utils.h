@@ -54,5 +54,6 @@ void displayElement(WindowWrap&, int, int, std::string, flag::print_type,
 void displayPercentColor(WindowWrap&, float, std::string, int, int);
 System parseSystemInformation();
 void parseStorageInformation();
-std::vector<const char*> parseCommandLineOutput(const char*);
+std::vector<std::string> parseCommandLineOutput(const char*);
+
 #endif
