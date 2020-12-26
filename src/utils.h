@@ -44,16 +44,11 @@ enum memType
 };
 } // namespace flag
 
-struct data
-{
-    float cpu, mem, swap;
-};
-
 void displayElement(WindowWrap&, int, int, std::string, flag::print_type,
                     flag::color);
 void displayPercentColor(WindowWrap&, float, std::string, int, int);
 System parseSystemInformation();
-void parseStorageInformation();
+std::vector<std::string> parseStorageInformation();
 std::vector<std::string> parseCommandLineOutput(const char*);
 
 #endif

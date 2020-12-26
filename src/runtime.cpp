@@ -4,8 +4,6 @@
 
 void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)
 {
-    // display linux version
-    displayElement(disp, 0, 0, cpu.getVersion(), flag::standard, flag::none);
 
     cpu.run();
     memory.run();
@@ -65,7 +63,25 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
     }
 }
 
-void displayStorageInformation(WindowWrap& disp) { parseStorageInformation(); }
+void displayStorageInformation(WindowWrap& disp)
+{
+
+    // list size of files
+    // du -h --max-depth=1 | sort -hr
+
+    // display storage mounts
+    // df
+    displayElement(disp, 1, 0, "STORAGE: 0.0GB / 250.98GB",
+                   flag::print_type::standard, flag::color::none);
+    auto storageVector = parseStorageInformation();
+
+    int i = 2;
+    for (auto element : storageVector)
+    {
+        displayElement(disp, i, 0, element, flag::standard, flag::none);
+        i++;
+    }
+}
 
 void displaySystemProcesses(WindowWrap& disp)
 {

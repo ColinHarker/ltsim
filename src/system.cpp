@@ -28,8 +28,8 @@ void System::sort()
 
 void System::display(WindowWrap& disp)
 {
-    std::string titles =
-        " CPU   MEM  USER   PID     VSZ    RSS   TTY  STAT START  "
+    const std::string titles =
+        " CPU   MEM  USER   PID      VSZ    RSS   TTY  STAT START  "
         "TIME COMMAND";
 
     mvwprintw(disp.getWin(), 1, 0, titles.c_str());

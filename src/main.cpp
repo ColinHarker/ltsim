@@ -46,21 +46,25 @@ int main()
     RandomAccessMemory mem;
     bool running = true;
 
-    WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 0, 0);
-    WindowWrap disp_2(LINES / 2, COLS / 2, 0, COLS / 2);
+    WindowWrap topDisplayHeader(1, COLS, 0, 0);
+    WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 1, 0);
+    WindowWrap disp_2(LINES / 2, COLS / 2, 1, COLS / 2);
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
+
+    // display linux version
+    displayElement(topDisplayHeader, 0, 0, cpu.getVersion(), flag::standard,
+                   flag::none);
+
+    // display cpu model above graph
+    displayElement(cpuInformationWindow, 1, 0, cpu.getModelName(),
+                   flag::standard, flag::none);
 
     refresh();
 
-    box(disp_2.getWin(), 0, 0);
-
+    wrefresh(topDisplayHeader.getWin());
     wrefresh(cpuInformationWindow.getWin());
     wrefresh(disp_2.getWin());
     wrefresh(systemProcessWindow.getWin());
-
-    // display cpu model above graph
-    displayElement(cpuInformationWindow, 2, 0, cpu.getModelName(),
-                   flag::standard, flag::none);
 
     while (running)
     {
@@ -70,15 +74,6 @@ int main()
         displaySystemProcesses(systemProcessWindow);
 
         displayStorageInformation(disp_2);
-
-        displayElement(disp_2, 1, 1, "STORAGE: 0.0GB / 250.98GB",
-                       flag::print_type::standard, flag::color::none);
-
-        // list size of files
-        // du -h --max-depth=1 | sort -hr
-
-        // display storage mounts
-        // df
 
         refresh();
         wrefresh(systemProcessWindow.getWin());

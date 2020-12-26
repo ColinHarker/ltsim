@@ -30,6 +30,9 @@ obj/main.o: src/main.cpp | obj
 $(OBJECTS): obj/%.o : src/%.cpp | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
+format:
+	cd src && clang-format -i *.cpp *.h
+
 # Create object folder if it does not exist
 obj:
 	mkdir $@

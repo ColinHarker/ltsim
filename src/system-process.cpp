@@ -41,7 +41,7 @@ std::string SystemProcess::toString()
 {
     std::ostringstream oss;
     oss << std::setw(5) << user << "" << std::setw(5) << pid << " "
-        << std::setw(7) << vsz << " " << std::setw(6) << rss << " "
+        << std::setw(8) << vsz << " " << std::setw(6) << rss << " "
         << std::setw(5) << tty << " " << std::setw(5) << stat << " "
         << std::setw(5) << start << " " << std::setw(5) << time << " "
         << command << std::endl;

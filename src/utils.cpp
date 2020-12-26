@@ -55,10 +55,11 @@ System parseSystemInformation()
     return sys;
 }
 
-void parseStorageInformation()
+std::vector<std::string> parseStorageInformation()
 {
     auto buffer_container =
         parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
+    return buffer_container;
 }
 
 std::vector<std::string> parseCommandLineOutput(const char* cmd)
