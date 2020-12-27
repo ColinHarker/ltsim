@@ -7,6 +7,7 @@
 #include <array>
 #include <memory>
 #include <iostream>
+#include <ncurses.h>
 
 #include "cpu-reader.h"
 

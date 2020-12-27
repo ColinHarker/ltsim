@@ -85,6 +85,6 @@ void Cpu::parseVersion()
     std::getline(proc_cpuinfo, ret);
 
     // only grabbing the information wanted from /version
-    std::string vers = ret.substr(0, 41);
+    std::string vers = ret.substr(0, COLS);
     cpu.version = vers;
 }
