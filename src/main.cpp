@@ -35,20 +35,20 @@ SOFTWARE.
 
 int main()
 {
-
+    // ncurses initialization, fails if terminal or OS not supported
     if (!init())
     {
-        // ncurses initialization, fails if terminal not supported
         return EXIT_FAILURE;
     }
 
+    // initialize runtime objects
     Cpu cpu;
     RandomAccessMemory mem;
     bool running = true;
 
     WindowWrap topDisplayHeader(1, COLS, 0, 0);
     WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 1, 0);
-    WindowWrap disp_2(LINES / 2, COLS / 2, 1, COLS / 2);
+    WindowWrap storageDisplayWindow(LINES / 2, COLS / 2, 1, COLS / 2);
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
 
     // display linux version
@@ -59,31 +59,24 @@ int main()
     displayElement(cpuInformationWindow, 1, 0, cpu.getModelName(),
                    flag::standard, flag::none);
 
-    refresh();
-
-    wrefresh(topDisplayHeader.getWin());
-    wrefresh(cpuInformationWindow.getWin());
-    wrefresh(disp_2.getWin());
-    wrefresh(systemProcessWindow.getWin());
-
     while (running)
     {
-        updateCpuWindow(cpuInformationWindow, cpu,
-                        mem); // window that contains cpu utiliation
-
-        displaySystemProcesses(systemProcessWindow);
-
-        displayStorageInformation(disp_2);
-
         refresh();
+        wrefresh(topDisplayHeader.getWin());
         wrefresh(systemProcessWindow.getWin());
-        wrefresh(disp_2.getWin());
+        wrefresh(storageDisplayWindow.getWin());
         wrefresh(cpuInformationWindow.getWin());
+
+        // following functions found in runtime.cpp
+        updateCpuWindow(cpuInformationWindow, cpu, mem);
+        displaySystemProcesses(systemProcessWindow);
+        displayStorageInformation(storageDisplayWindow);
+
         sleep(1);
     }
 
     // deallocates and ends ncurses
     endwin();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

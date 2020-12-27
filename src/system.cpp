@@ -19,7 +19,6 @@ void System::print()
 
 void System::sort()
 {
-
     std::sort(processes.begin(), processes.end(),
               [](SystemProcess& lhs, SystemProcess& rhs) {
                   return lhs.getCpuAsFloat() > rhs.getCpuAsFloat();

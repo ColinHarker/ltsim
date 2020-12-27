@@ -2,16 +2,16 @@
 
 #include "runtime.h"
 
-void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)
+void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
+                     RandomAccessMemory& memory)
 {
-
-    cpu.run();
+    cpuContainer.run();
     memory.run();
 
-    float util = cpu.getCpu().getUtil();
+    float util = cpuContainer.getCpu().getUtil();
     float mem = memory.getMemUsage();
     float swap = memory.getSwapUsage();
-    std::vector<CpuReader> core = cpu.getCores();
+    std::vector<CpuReader> core = cpuContainer.getCores();
 
     displayCpuLevel(disp, util, "CPU", 3, 0, flag::coreType::cpu);
     displayCpuLevel(disp, mem, "MEM", 4, 0, flag::coreType::cpu);
