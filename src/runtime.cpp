@@ -16,7 +16,6 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)
     displayCpuLevel(disp, util, "CPU", 3, 0, flag::coreType::cpu);
     displayCpuLevel(disp, mem, "MEM", 4, 0, flag::coreType::cpu);
     displayCpuLevel(disp, swap, "SWAP", 5, 0, flag::coreType::cpu);
-
     displayCpuCores(disp, core, 7, flag::coreType::core);
 }
 
@@ -65,21 +64,15 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
 
 void displayStorageInformation(WindowWrap& disp)
 {
-
-    // list size of files
-    // du -h --max-depth=1 | sort -hr
-
-    // display storage mounts
-    // df
     displayElement(disp, 1, 0, "STORAGE: 0.0GB / 250.98GB",
                    flag::print_type::standard, flag::color::none);
+
     auto storageVector = parseStorageInformation();
 
-    int i = 2;
+    int row = 2;
     for (auto element : storageVector)
     {
-        displayElement(disp, i, 0, element, flag::standard, flag::none);
-        i++;
+        displayElement(disp, row++, 0, element, flag::standard, flag::none);
     }
 }
 

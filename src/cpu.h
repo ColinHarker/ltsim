@@ -14,7 +14,7 @@
 class Cpu
 {
 private:
-    CpuReader cpu;
+    CpuReader cpuReader;
     int numCores = -1;
     std::vector<CpuReader> cores;
     void parseModelName();

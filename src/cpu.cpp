@@ -14,15 +14,15 @@ Cpu::Cpu()
 
 void Cpu::run()
 {
-    cpu.run(0);
+    cpuReader.run(0);
     parseCores();
 }
 
-CpuReader Cpu::getCpu() { return cpu; }
+CpuReader Cpu::getCpu() { return cpuReader; }
 
 std::vector<CpuReader> Cpu::getCores() { return cores; }
 
-std::string Cpu::getModelName() { return cpu.modelName; }
+std::string Cpu::getModelName() { return cpuReader.modelName; }
 
 void Cpu::parseModelName()
 {
@@ -38,10 +38,10 @@ void Cpu::parseModelName()
     proc_cpuinfo.ignore(13);
     std::getline(proc_cpuinfo, mn);
 
-    cpu.setModelName(mn);
+    cpuReader.setModelName(mn);
 }
 
-std::string Cpu::getVersion() { return cpu.version; }
+std::string Cpu::getVersion() { return cpuReader.version; }
 
 int Cpu::getNumberCores()
 {
@@ -86,5 +86,5 @@ void Cpu::parseVersion()
 
     // only grabbing the information wanted from /version
     std::string vers = ret.substr(0, COLS);
-    cpu.version = vers;
+    cpuReader.version = vers;
 }

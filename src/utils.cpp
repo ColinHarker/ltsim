@@ -57,6 +57,11 @@ System parseSystemInformation()
 
 std::vector<std::string> parseStorageInformation()
 {
+    // list size of files
+    // du -h --max-depth=1 | sort -hr
+
+    // display storage mounts
+    // df
     auto buffer_container =
         parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
     return buffer_container;

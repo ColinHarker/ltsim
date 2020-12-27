@@ -28,11 +28,11 @@ void System::sort()
 
 void System::display(WindowWrap& disp)
 {
-    const std::string titles =
+    constexpr char titles[] =
         " CPU   MEM  USER   PID      VSZ    RSS   TTY  STAT START  "
         "TIME COMMAND";
 
-    mvwprintw(disp.getWin(), 1, 0, titles.c_str());
+    mvwprintw(disp.getWin(), 1, 0, titles);
     int i = 2;
     for (SystemProcess sp : processes)
     {
