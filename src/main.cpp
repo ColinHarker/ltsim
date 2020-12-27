@@ -59,6 +59,7 @@ int main()
     displayElement(cpuInformationWindow, 1, 0, cpu.getModelName(),
                    flag::standard, flag::none);
 
+    // have not figured out proper exit of program yet, use ctrl-c for now
     while (running)
     {
         refresh();
