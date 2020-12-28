@@ -16,7 +16,7 @@
 
 namespace flag
 {
-enum color
+enum class color : int
 {
     none,
     green,
@@ -24,18 +24,18 @@ enum color
     red
 };
 
-enum print_type
+enum class printType : int
 {
     use_color,
     standard
 };
 
-enum coreType
+enum class coreType : int
 {
     cpu,
     core
 };
-enum memType
+enum class memType : int
 {
     memTotal,
     memAvailable,
@@ -44,7 +44,7 @@ enum memType
 };
 } // namespace flag
 
-void displayElement(WindowWrap&, int, int, std::string, flag::print_type,
+void displayElement(WindowWrap&, int, int, std::string, flag::printType,
                     flag::color);
 void displayPercentColor(WindowWrap&, float, std::string, int, int);
 System parseSystemInformation();

@@ -3,16 +3,16 @@
 #include "utils.h"
 
 void displayElement(WindowWrap& disp, int row, int col, std::string element,
-                    flag::print_type flag, flag::color c)
+                    flag::printType flag, flag::color c)
 {
     switch (flag)
     {
-        case 0:
+        case flag::printType::use_color:
             wattron(disp.getWin(), COLOR_PAIR(c));
             mvwprintw(disp.getWin(), row, col, element.c_str());
             wattroff(disp.getWin(), COLOR_PAIR(c));
             break;
-        case 1:
+        case flag::printType::standard:
             mvwprintw(disp.getWin(), row, col, element.c_str());
             break;
         default:
@@ -25,19 +25,23 @@ void displayPercentColor(WindowWrap& disp, float percent, std::string str,
 {
     if (percent == 0.0)
     {
-        displayElement(disp, row, col, str, flag::standard, flag::none);
+        displayElement(disp, row, col, str, flag::printType::standard,
+                       flag::color::none);
     }
     else if (percent < 60)
     {
-        displayElement(disp, row, col, str, flag::use_color, flag::green);
+        displayElement(disp, row, col, str, flag::printType::use_color,
+                       flag::color::green);
     }
     else if (percent >= 60 && percent < 85)
     {
-        displayElement(disp, row, col, str, flag::use_color, flag::yellow);
+        displayElement(disp, row, col, str, flag::printType::use_color,
+                       flag::color::yellow);
     }
     else
     {
-        displayElement(disp, row, col, str, flag::use_color, flag::red);
+        displayElement(disp, row, col, str, flag::printType::use_color,
+                       flag::color::red);
     }
 }
 

@@ -24,8 +24,10 @@ void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
 {
     int displayLength = (ct == flag::coreType::cpu) ? 32 : 10;
 
-    displayElement(disp, y, start_x, label, flag::standard, flag::none);
-    displayElement(disp, y, start_x + 5, "[", flag::standard, flag::none);
+    displayElement(disp, y, start_x, label, flag::printType::standard,
+                   flag::color::none);
+    displayElement(disp, y, start_x + 5, "[", flag::printType::standard,
+                   flag::color::none);
 
     int level = static_cast<int>((displayLength * (util / 100)) + start_x + 6);
     for (int i = 0; i < displayLength; i++)
@@ -65,14 +67,15 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
 void displayStorageInformation(WindowWrap& disp)
 {
     displayElement(disp, 1, 0, "STORAGE: 0.0GB / 250.98GB",
-                   flag::print_type::standard, flag::color::none);
+                   flag::printType::standard, flag::color::none);
 
     auto storageVector = parseStorageInformation();
 
     int row = 2;
     for (auto element : storageVector)
     {
-        displayElement(disp, row++, 0, element, flag::standard, flag::none);
+        displayElement(disp, row++, 0, element, flag::printType::standard,
+                       flag::color::none);
     }
 }
 

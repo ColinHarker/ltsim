@@ -52,12 +52,12 @@ int main()
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
 
     // display linux version
-    displayElement(topDisplayHeader, 0, 0, cpu.getVersion(), flag::standard,
-                   flag::none);
+    displayElement(topDisplayHeader, 0, 0, cpu.getVersion(),
+                   flag::printType::standard, flag::color::none);
 
     // display cpu model above graph
     displayElement(cpuInformationWindow, 1, 0, cpu.getModelName(),
-                   flag::standard, flag::none);
+                   flag::printType::standard, flag::color::none);
 
     // have not figured out proper exit of program yet, use ctrl-c for now
     while (running)

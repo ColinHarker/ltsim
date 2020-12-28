@@ -14,15 +14,15 @@ void RandomAccessMemory::parseMemInfo(std::string str,
             std::string mem;
             if (file >> mem)
             {
-                if (classVariable == flag::memTotal)
+                if (classVariable == flag::memType::memTotal)
                 {
                     memTotal = std::stoul(mem);
                 }
-                else if (classVariable == flag::memAvailable)
+                else if (classVariable == flag::memType::memAvailable)
                 {
                     memAvailable = std::stoul(mem);
                 }
-                else if (classVariable == flag::swapTotal)
+                else if (classVariable == flag::memType::swapTotal)
                 {
                     swapTotal = std::stoul(mem);
                 }
@@ -39,10 +39,10 @@ void RandomAccessMemory::parseMemInfo(std::string str,
 
 void RandomAccessMemory::run()
 {
-    parseMemInfo("MemTotal", flag::memTotal);
-    parseMemInfo("MemAvailable", flag::memAvailable);
-    parseMemInfo("SwapTotal", flag::swapTotal);
-    parseMemInfo("SwapFree", flag::swapFree);
+    parseMemInfo("MemTotal", flag::memType::memTotal);
+    parseMemInfo("MemAvailable", flag::memType::memAvailable);
+    parseMemInfo("SwapTotal", flag::memType::swapTotal);
+    parseMemInfo("SwapFree", flag::memType::swapFree);
 }
 
 float RandomAccessMemory::getMemUsage()

@@ -48,20 +48,12 @@ std::string SystemProcess::toString()
     return oss.str();
 }
 
-float SystemProcess::getCpuAsFloat()
-{
-    float ret = atoi(cpu.c_str());
-    return ret;
-}
+float SystemProcess::getCpuAsFloat() const { return atoi(cpu.c_str()); }
 
-std::string SystemProcess::getCpuAsString() { return cpu; }
+std::string SystemProcess::getCpuAsString() const { return cpu; }
 
-float SystemProcess::getMemAsFloat()
-{
-    float ret = atoi(mem.c_str());
-    return ret;
-}
+float SystemProcess::getMemAsFloat() const { return atoi(mem.c_str()); }
 
-std::string SystemProcess::getMemAsString() { return mem; }
+std::string SystemProcess::getMemAsString() const { return mem; }
 
 void SystemProcess::setCpu(std::string str) { cpu = str; }

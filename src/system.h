@@ -3,10 +3,10 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-class System;
-
 #include <vector>
 #include <algorithm>
+
+class System;
 
 #include "window.h"
 #include "system-process.h"
