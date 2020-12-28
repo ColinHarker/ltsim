@@ -54,7 +54,7 @@ int main()
     {
         printw("Terminal does not support color");
         getchar();
-        return false;
+        return EXIT_FAILURE;
     }
 
     // initialize color pairs
