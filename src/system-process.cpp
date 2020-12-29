@@ -12,7 +12,7 @@ SystemProcess::SystemProcess(std::string t_user, std::string t_pid,
       tty(t_tty), stat(t_stat), start(t_start), time(t_time),
       command(t_command){};
 
-void SystemProcess::parse(const std::string buffer)
+void SystemProcess::parse(const std::string& buffer)
 {
 
     std::istringstream ss(buffer);
@@ -56,4 +56,4 @@ float SystemProcess::getMemAsFloat() const { return atoi(mem.c_str()); }
 
 std::string SystemProcess::getMemAsString() const { return mem; }
 
-void SystemProcess::setCpu(std::string str) { cpu = str; }
+void SystemProcess::setCpu(const std::string& str) { cpu = str; }

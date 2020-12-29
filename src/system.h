@@ -20,11 +20,29 @@ private:
 public:
     System();
     void add(SystemProcess&);
-    SystemProcess get(int);
+
+    /** retrieves process from processes vector
+     * @param index index of process to be retrieved
+     * @return SystemProcess object
+     */
+    SystemProcess get(int index);
+
+    /** sorts the processes in decending order based on cpu load
+     */
     void sort();
-    void display(WindowWrap&);
+
+    /** displays all system proccesses held in System Object to designated
+     * window
+     * @param win window to be dispayed on
+     */
+    void display(WindowWrap& win);
+
     void print();
-    void remove(int);
+
+    /** Remove watched process at index
+     * @param index Index within processes vector to remove
+     */
+    void remove(int index);
 };
 
 #endif

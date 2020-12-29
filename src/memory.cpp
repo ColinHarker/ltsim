@@ -2,14 +2,20 @@
 
 #include "memory.h"
 
-void RandomAccessMemory::parseMemInfo(std::string str,
+#include <fstream>
+#include <limits>
+#include <iostream>
+
+RandomAccessMemory::RandomAccessMemory() { run(); }
+
+void RandomAccessMemory::parseMemInfo(const std::string& memInfoType,
                                       flag::memType classVariable)
 {
     std::string token;
     std::ifstream file("/proc/meminfo");
     while (file >> token)
     {
-        if (token == str + ":")
+        if (token == memInfoType + ":")
         {
             std::string mem;
             if (file >> mem)
@@ -43,17 +49,16 @@ void RandomAccessMemory::run()
     parseMemInfo("MemAvailable", flag::memType::memAvailable);
     parseMemInfo("SwapTotal", flag::memType::swapTotal);
     parseMemInfo("SwapFree", flag::memType::swapFree);
+    calculateMemSwapUsage();
 }
 
-float RandomAccessMemory::getMemUsage()
+void RandomAccessMemory::calculateMemSwapUsage()
 {
     memUsagePercent = 100.f * (1.f - (static_cast<double>(memAvailable) /
                                       static_cast<double>(memTotal)));
-    return memUsagePercent;
-}
-float RandomAccessMemory::getSwapUsage()
-{
     swapUsagePercent = 100.f * (1.f - (static_cast<double>(swapFree) /
                                        static_cast<double>(swapTotal)));
-    return swapUsagePercent;
 }
+
+float RandomAccessMemory::getMemUsage() const { return memUsagePercent; }
+float RandomAccessMemory::getSwapUsage() const { return swapUsagePercent; }

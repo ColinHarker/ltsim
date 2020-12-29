@@ -32,7 +32,7 @@ void System::display(WindowWrap& disp)
         "TIME COMMAND";
 
     mvwprintw(disp.getWin(), 1, 0, titles);
-    int i = 2;
+    int ROW = 2;
     for (SystemProcess sp : processes)
     {
         float cpu = sp.getCpuAsFloat();
@@ -40,10 +40,10 @@ void System::display(WindowWrap& disp)
         std::string cpuStr = sp.getCpuAsString();
         std::string memStr = sp.getMemAsString();
 
-        displayPercentColor(disp, cpu, cpuStr + " ", i, 1);
-        displayPercentColor(disp, mem, memStr, i, 7);
-        mvwprintw(disp.getWin(), i, 12, sp.toString().c_str());
-        i++;
+        displayPercentColor(disp, cpu, cpuStr + " ", ROW, 1);
+        displayPercentColor(disp, mem, memStr, ROW, 7);
+        mvwprintw(disp.getWin(), ROW, 12, sp.toString().c_str());
+        ROW++;
     }
     wclrtobot(disp.getWin());
 }

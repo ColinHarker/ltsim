@@ -21,7 +21,7 @@ void TEST_2()
     std::vector<CpuReader> cores = cpu.getCores();
     for (auto core : cores)
     {
-        std::cout << core.getUtil() << "\n";
+        std::cout << core.getUtilization() << "\n";
     }
 }
 

@@ -8,7 +8,7 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
     cpuContainer.run();
     memory.run();
 
-    float util = cpuContainer.getCpu().getUtil();
+    float util = cpuContainer.getCpu().getUtilization();
     float mem = memory.getMemUsage();
     float swap = memory.getSwapUsage();
     std::vector<CpuReader> core = cpuContainer.getCores();
@@ -57,8 +57,8 @@ void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
     int i = 1;
     for (auto& core : cores)
     {
-        displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y, 0,
-                        ct);
+        displayCpuLevel(disp, core.getUtilization(), "Core" + std::to_string(i),
+                        y, 0, ct);
         y++;
         i++;
     }

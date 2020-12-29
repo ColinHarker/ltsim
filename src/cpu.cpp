@@ -2,14 +2,24 @@
 
 #include "cpu.h"
 
+#include <vector>
+#include <array>
+#include <memory>
+#include <iostream>
+#include <ncurses.h>
+#include <limits>
+
+using std::string;
+using std::vector;
+
 Cpu::Cpu()
 {
-    run();
     parseModelName();
     parseVersion();
     numCores = getNumberCores();
     addCores();
     parseCores();
+    run();
 }
 
 void Cpu::run()
@@ -20,9 +30,9 @@ void Cpu::run()
 
 CpuReader Cpu::getCpu() { return cpuReader; }
 
-std::vector<CpuReader> Cpu::getCores() { return cores; }
+vector<CpuReader> Cpu::getCores() { return cores; }
 
-std::string Cpu::getModelName() { return cpuReader.modelName; }
+string Cpu::getModelName() { return cpuReader.modelName; }
 
 void Cpu::parseModelName()
 {
@@ -32,7 +42,7 @@ void Cpu::parseModelName()
     {
         proc_cpuinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    std::string mn;
+    string mn;
 
     // skip the first 13 characters of the cpu model name
     proc_cpuinfo.ignore(13);
@@ -41,13 +51,13 @@ void Cpu::parseModelName()
     cpuReader.setModelName(mn);
 }
 
-std::string Cpu::getVersion() { return cpuReader.version; }
+string Cpu::getVersion() { return cpuReader.version; }
 
 int Cpu::getNumberCores()
 {
 
     std::array<char, 4> buffer;
-    std::string result;
+    string result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("nproc", "r"), pclose);
     if (!pipe)
     {
@@ -81,10 +91,10 @@ void Cpu::parseCores()
 void Cpu::parseVersion()
 {
     std::ifstream proc_cpuinfo("/proc/version");
-    std::string ret;
+    string ret;
     std::getline(proc_cpuinfo, ret);
 
     // only grabbing the information wanted from /version
-    std::string vers = ret.substr(0, COLS);
+    string vers = ret.substr(0, COLS);
     cpuReader.version = vers;
 }

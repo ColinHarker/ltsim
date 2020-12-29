@@ -3,33 +3,47 @@
 #ifndef CPU_READER_H
 #define CPU_READER_H
 
-#include <fstream>
-#include <limits>
-#include <numeric>
 #include <vector>
+#include <fstream>
 
 class CpuReader
 {
 private:
-    std::string modelName, version;
-    size_t previous_idle_time = 0, previous_total_time = 0;
-    size_t idle_time, total_time;
+    std::string modelName;
+    std::string version;
+
+    size_t previousIdleTime = 0;
+    size_t previousTotalTime = 0;
+    size_t idleTime;
+    size_t totalTime;
+
     float utilization;
 
     friend class Cpu;
 
-    bool get_cpu_times(int); // sets the total_time variable for cpu, returns
-                             // false if not enough information
-    std::vector<size_t>
-    retrieve_cpu_times(int); // retrieves info from /proc/stat
-    void parseVersion();     // retieves linux version from /proc/version
-    void run(int); // calculates the total cpu utilization, takes in an int to
-                   // specify what information to parse. 0 parses total cpu, 1-8
-                   // or more denotes specific cores.
+    /** math function to accumulate values provided for total_time variable,
+     * from cpu information files
+     * @param lineNumberTarget the line in the /proc/stat file we are targeting
+     * @return bool for success or failure
+     */
+    bool getCpuTimes(int lineNumberTarget);
+
+    /** parsing information from /proc/stat
+     * @param lineNumberTarget the line in the /proc/stat file we are targeting
+     * @return vector of provided information
+     */
+    std::vector<size_t> retrieveCpuTimes(int) const;
+
+    /**  calculates the total cpu utilization, takes in an int to
+     * specify what information to parse. 0 parses total cpu, 1-8
+     *  or more denotes specific cores.
+     * @param lineNumberTarget the line in the /proc/stat file we are targeting
+     */
+    void run(int lineNumberTarget);
+
 public:
-    void setModelName(std::string);
-    std::string getVersion();
-    float getUtil();
+    void setModelName(const std::string&);
+    float getUtilization() const;
 };
 
 #endif

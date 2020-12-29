@@ -19,6 +19,5 @@ public:
     WindowWrap(int h, int w, int x, int y);
 
     WINDOW* getWin() const;
-    ~WindowWrap() {}
 };
 #endif
