@@ -51,4 +51,7 @@ void displaySystemProcesses(WindowWrap& display);
  */
 void displayStorageInformation(WindowWrap& display);
 
+void displayCpuUtilizationGraph(WindowWrap& display, float utilization, int row,
+                                int column, int width);
+
 #endif

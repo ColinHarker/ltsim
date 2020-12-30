@@ -2,7 +2,12 @@
 
 #include "utils.h"
 
-void displayElement(WindowWrap& disp, int row, int col, std::string element,
+#include <deque>
+
+using std::string;
+using std::vector;
+
+void displayElement(WindowWrap& disp, int row, int col, string element,
                     flag::printType flag, flag::color c)
 {
     switch (flag)
@@ -20,8 +25,8 @@ void displayElement(WindowWrap& disp, int row, int col, std::string element,
     }
 }
 
-void displayPercentColor(WindowWrap& disp, float percent, std::string str,
-                         int row, int col)
+void displayPercentColor(WindowWrap& disp, float percent, string str, int row,
+                         int col)
 {
     if (percent == 0.0)
     {
@@ -59,24 +64,23 @@ System parseSystemInformation()
     return sys;
 }
 
-std::vector<std::string> parseStorageInformation()
+vector<string> parseStorageInformation()
 {
     // list size of files
     // du -h --max-depth=1 | sort -hr
 
     // display storage mounts
     // df
-    auto buffer_container =
-        parseCommandLineOutput("du -h --max-depth=1 | sort -hr");
+    auto buffer_container = parseCommandLineOutput("df -h | sort -hr");
     return buffer_container;
 }
 
-std::vector<std::string> parseCommandLineOutput(const char* cmd)
+vector<string> parseCommandLineOutput(const char* cmd)
 {
-    std::vector<std::string> buffer_container;
+    vector<string> buffer_container;
 
     std::array<char, 512> buffer;
-    std::string result;
+    string result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
     if (!pipe)
     {
@@ -84,8 +88,33 @@ std::vector<std::string> parseCommandLineOutput(const char* cmd)
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
     {
-        buffer_container.emplace_back(buffer.data());
+        result = buffer.data();
+
+        // skipping over unneccessary data in stream
+        if (result.find("Filesystem") != string::npos)
+        {
+            continue;
+        }
+        else if (result.find("/dev/loop") != string::npos)
+        {
+            continue;
+        }
+        buffer_container.emplace_back(result);
     }
 
     return buffer_container;
 }
+
+template <typename T, int MaxLen, typename Container = std::deque<T>>
+class FixedQueue : public std::queue<T, Container>
+{
+public:
+    void push(const T& value)
+    {
+        if (this->size() == MaxLen)
+        {
+            this->c.pop_front();
+        }
+        std::queue<T, Container>::push(value);
+    }
+};

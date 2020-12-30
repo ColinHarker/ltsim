@@ -15,3 +15,7 @@ void WindowWrap::createWindow()
 }
 
 WINDOW* WindowWrap::getWin() const { return m_win; }
+
+int WindowWrap::getWidth() const { return m_width; }
+
+int WindowWrap::getHeight() const { return m_height; }

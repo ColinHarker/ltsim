@@ -8,6 +8,9 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
     constexpr int k_StartColumn = 0;
     constexpr int k_StartRow = 3;
 
+    constexpr int k_GraphStartRow = 7;
+    constexpr int k_GraphStartColumn = 25;
+
     cpuContainer.run();
     memory.run();
 
@@ -24,6 +27,9 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
                             flag::displayLength::standard);
 
     displayCpuCores(disp, core, k_StartRow + 4, flag::displayLength::small);
+
+    displayCpuUtilizationGraph(disp, util, k_GraphStartRow, k_GraphStartColumn,
+                               (disp.getWidth() / 2) - 2);
 }
 
 void displayUtilizationLevel(WindowWrap& disp, float util,
@@ -81,7 +87,8 @@ void displayCpuCores(WindowWrap& disp, const std::vector<CpuReader> cores,
 
 void displayStorageInformation(WindowWrap& disp)
 {
-    displayElement(disp, 1, 0, "STORAGE: 0.0GB / 250.98GB",
+    displayElement(disp, 1, 0,
+                   "Filesystem      Size  Used Avail Use% Mounted on",
                    flag::printType::standard, flag::color::none);
 
     auto storageVector = parseStorageInformation();
@@ -100,4 +107,18 @@ void displaySystemProcesses(WindowWrap& disp)
     sys.remove(0); // removing the menu string
     sys.sort();
     sys.display(disp);
+}
+
+void displayCpuUtilizationGraph(WindowWrap& display, float util, int row,
+                                int column, int width)
+{
+    // display corner bounds of graph
+    displayElement(display, row, column, "+", flag::printType::standard,
+                   flag::color::none);
+    displayElement(display, row + 7, column, "+", flag::printType::standard,
+                   flag::color::none);
+    displayElement(display, row, column + width, "+", flag::printType::standard,
+                   flag::color::none);
+    displayElement(display, row + 7, column + width, "+",
+                   flag::printType::standard, flag::color::none);
 }
