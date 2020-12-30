@@ -2,27 +2,37 @@
 
 #include "cpu.h"
 
+#include <vector>
+#include <array>
+#include <memory>
+#include <iostream>
+#include <ncurses.h>
+#include <limits>
+
+using std::string;
+using std::vector;
+
 Cpu::Cpu()
 {
-    run();
     parseModelName();
     parseVersion();
-    numCores = getNumberCores();
+    m_numCores = getNumberCores();
     addCores();
     parseCores();
+    run();
 }
 
 void Cpu::run()
 {
-    cpu.run(0);
+    m_cpuReader.run(0);
     parseCores();
 }
 
-CpuReader Cpu::getCpu() { return cpu; }
+CpuReader Cpu::getCpu() { return m_cpuReader; }
 
-std::vector<CpuReader> Cpu::getCores() { return cores; }
+vector<CpuReader> Cpu::getCores() { return m_cores; }
 
-std::string Cpu::getModelName() { return cpu.modelName; }
+string Cpu::getModelName() { return m_cpuReader.m_modelName; }
 
 void Cpu::parseModelName()
 {
@@ -32,22 +42,22 @@ void Cpu::parseModelName()
     {
         proc_cpuinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    std::string mn;
+    string mn;
 
     // skip the first 13 characters of the cpu model name
     proc_cpuinfo.ignore(13);
     std::getline(proc_cpuinfo, mn);
 
-    cpu.setModelName(mn);
+    m_cpuReader.setModelName(mn);
 }
 
-std::string Cpu::getVersion() { return cpu.version; }
+string Cpu::getVersion() { return m_cpuReader.m_version; }
 
 int Cpu::getNumberCores()
 {
 
     std::array<char, 4> buffer;
-    std::string result;
+    string result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("nproc", "r"), pclose);
     if (!pipe)
     {
@@ -62,17 +72,17 @@ int Cpu::getNumberCores()
 }
 void Cpu::addCores()
 {
-    for (int i = 1; i <= numCores; i++)
+    for (int i = 1; i <= m_numCores; i++)
     {
         CpuReader cpr;
         cpr.run(i);
-        cores.emplace_back(cpr);
+        m_cores.emplace_back(cpr);
     }
 }
 void Cpu::parseCores()
 {
     int i = 1;
-    for (auto& core : cores)
+    for (auto& core : m_cores)
     {
         core.run(i++);
     }
@@ -81,10 +91,10 @@ void Cpu::parseCores()
 void Cpu::parseVersion()
 {
     std::ifstream proc_cpuinfo("/proc/version");
-    std::string ret;
+    string ret;
     std::getline(proc_cpuinfo, ret);
 
     // only grabbing the information wanted from /version
-    std::string vers = ret.substr(0, COLS);
-    cpu.version = vers;
+    string vers = ret.substr(0, COLS);
+    m_cpuReader.m_version = vers;
 }

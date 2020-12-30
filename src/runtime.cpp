@@ -2,84 +2,95 @@
 
 #include "runtime.h"
 
-void updateCpuWindow(WindowWrap& disp, Cpu& cpu, RandomAccessMemory& memory)
+void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
+                     RandomAccessMemory& memory)
 {
+    constexpr int k_StartColumn = 0;
+    constexpr int k_StartRow = 3;
 
-    cpu.run();
+    cpuContainer.run();
     memory.run();
 
-    float util = cpu.getCpu().getUtil();
+    float util = cpuContainer.getCpu().getUtilization();
     float mem = memory.getMemUsage();
     float swap = memory.getSwapUsage();
-    std::vector<CpuReader> core = cpu.getCores();
+    std::vector<CpuReader> core = cpuContainer.getCores();
 
-    displayCpuLevel(disp, util, "CPU", 3, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, mem, "MEM", 4, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, swap, "SWAP", 5, 0, flag::coreType::cpu);
+    displayUtilizationLevel(disp, util, "CPU", k_StartRow, k_StartColumn,
+                            flag::displayLength::standard);
+    displayUtilizationLevel(disp, mem, "MEM", k_StartRow + 1, k_StartColumn,
+                            flag::displayLength::standard);
+    displayUtilizationLevel(disp, swap, "SWAP", k_StartRow + 2, k_StartColumn,
+                            flag::displayLength::standard);
 
-    displayCpuCores(disp, core, 7, flag::coreType::core);
+    displayCpuCores(disp, core, k_StartRow + 4, flag::displayLength::small);
 }
 
-void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
-                     int start_x, flag::coreType ct)
+void displayUtilizationLevel(WindowWrap& disp, float util,
+                             const std::string& label, int row, int startColumn,
+                             flag::displayLength length)
 {
-    int displayLength = (ct == flag::coreType::cpu) ? 32 : 10;
+    constexpr int k_StandardLength = 32;
+    constexpr int k_SmallLength = 10;
 
-    displayElement(disp, y, start_x, label, flag::standard, flag::none);
-    displayElement(disp, y, start_x + 5, "[", flag::standard, flag::none);
+    int displayLength = (length == flag::displayLength::standard)
+                            ? k_StandardLength
+                            : k_SmallLength;
 
-    int level = static_cast<int>((displayLength * (util / 100)) + start_x + 6);
+    displayElement(disp, row, startColumn, label, flag::printType::standard,
+                   flag::color::none);
+    displayElement(disp, row, startColumn + 5, "[", flag::printType::standard,
+                   flag::color::none);
+
+    int level =
+        static_cast<int>((displayLength * (util / 100)) + startColumn + 6);
     for (int i = 0; i < displayLength; i++)
     {
-        int offset = i + start_x + 6;
+        int offset = i + startColumn + 6;
         if (offset > level)
         {
-            mvwprintw(disp.getWin(), y, offset, " ");
+            mvwprintw(disp.getWin(), row, offset, " ");
         }
         else
         {
-            displayPercentColor(disp, util, "|", y, offset);
+            displayPercentColor(disp, util, "|", row, offset);
         }
         wrefresh(disp.getWin());
     }
-    mvwprintw(disp.getWin(), y, start_x + displayLength + 6, "]");
+    mvwprintw(disp.getWin(), row, startColumn + displayLength + 6, "]");
 
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << "%%";
-    displayPercentColor(disp, util, ss.str() + " ", y,
-                        start_x + displayLength + 8);
+    displayPercentColor(disp, util, ss.str() + " ", row,
+                        startColumn + displayLength + 8);
 }
 
-void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
-                     flag::coreType ct)
+void displayCpuCores(WindowWrap& disp, const std::vector<CpuReader> cores,
+                     int startRow, flag::displayLength length)
 {
-    int i = 1;
+    int coreNumber = 1; // Index 0 is taken up by full CPU
     for (auto& core : cores)
     {
-        displayCpuLevel(disp, core.getUtil(), "Core" + std::to_string(i), y, 0,
-                        ct);
-        y++;
-        i++;
+        displayUtilizationLevel(disp, core.getUtilization(),
+                                "Core" + std::to_string(coreNumber), startRow,
+                                0, length);
+        startRow++;
+        coreNumber++;
     }
 }
 
 void displayStorageInformation(WindowWrap& disp)
 {
-
-    // list size of files
-    // du -h --max-depth=1 | sort -hr
-
-    // display storage mounts
-    // df
     displayElement(disp, 1, 0, "STORAGE: 0.0GB / 250.98GB",
-                   flag::print_type::standard, flag::color::none);
+                   flag::printType::standard, flag::color::none);
+
     auto storageVector = parseStorageInformation();
 
-    int i = 2;
+    int row = 2;
     for (auto element : storageVector)
     {
-        displayElement(disp, i, 0, element, flag::standard, flag::none);
-        i++;
+        displayElement(disp, row++, 0, element, flag::printType::standard,
+                       flag::color::none);
     }
 }
 

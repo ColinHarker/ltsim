@@ -20,14 +20,14 @@ public:
                   std::string, std::string, std::string, std::string,
                   std::string, std::string, std::string);
 
-    void parse(const std::string);
+    void parse(const std::string&);
     void print();
-    float getCpuAsFloat();
-    float getMemAsFloat();
-    std::string getCpuAsString();
-    std::string getMemAsString();
+    float getCpuAsFloat() const;
+    float getMemAsFloat() const;
+    std::string getCpuAsString() const;
+    std::string getMemAsString() const;
     std::string toString();
-    void setCpu(std::string std);
+    void setCpu(const std::string& std);
 };
 
 #endif

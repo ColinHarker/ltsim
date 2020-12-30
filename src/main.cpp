@@ -22,6 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef _WIN32
+std::cerr << "Program not built for windows os" << '\n';
+exit(1);
+#endif
+
+#ifdef __APPLE__
+std::cerr << "Program not built for apple os" << '\n';
+exit(1);
+#endif
+
 #include <ncurses.h>
 #include <unistd.h>
 #include <iomanip>
@@ -29,61 +39,71 @@ SOFTWARE.
 
 #include "cpu.h"
 #include "window.h"
-#include "init.h"
 #include "utils.h"
 #include "runtime.h"
 
 int main()
 {
+    // --------------------Initialization-----------------------------//
+    // ncurses initialization, fails if terminal or OS not supported
+    initscr();   // initialize the screen
+    noecho();    // keyboard input not registered to screen
+    curs_set(0); // curser invisible
 
-    if (!init())
+    if (!has_colors()) // check to see if the terminal in use supports colors
     {
-        // ncurses initialization, fails if terminal not supported
+        printw("Terminal does not support color");
+        getchar();
         return EXIT_FAILURE;
     }
 
+    // initialize color pairs
+    start_color();
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(3, COLOR_RED, COLOR_BLACK);
+
+    // initialize runtime objects
     Cpu cpu;
     RandomAccessMemory mem;
     bool running = true;
 
     WindowWrap topDisplayHeader(1, COLS, 0, 0);
     WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 1, 0);
-    WindowWrap disp_2(LINES / 2, COLS / 2, 1, COLS / 2);
+    WindowWrap storageDisplayWindow(LINES / 2, COLS / 2, 1, COLS / 2);
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
 
+    // ---------------------------------------------------------------//
+
     // display linux version
-    displayElement(topDisplayHeader, 0, 0, cpu.getVersion(), flag::standard,
-                   flag::none);
+    displayElement(topDisplayHeader, 0, 0, cpu.getVersion(),
+                   flag::printType::standard, flag::color::none);
 
     // display cpu model above graph
     displayElement(cpuInformationWindow, 1, 0, cpu.getModelName(),
-                   flag::standard, flag::none);
+                   flag::printType::standard, flag::color::none);
 
-    refresh();
-
-    wrefresh(topDisplayHeader.getWin());
-    wrefresh(cpuInformationWindow.getWin());
-    wrefresh(disp_2.getWin());
-    wrefresh(systemProcessWindow.getWin());
-
+    // ----------------- Main Loop ----------------------------------//
+    // have not figured out proper exit of program yet, use ctrl-c for now
     while (running)
     {
-        updateCpuWindow(cpuInformationWindow, cpu,
-                        mem); // window that contains cpu utiliation
-
-        displaySystemProcesses(systemProcessWindow);
-
-        displayStorageInformation(disp_2);
-
         refresh();
+        wrefresh(topDisplayHeader.getWin());
         wrefresh(systemProcessWindow.getWin());
-        wrefresh(disp_2.getWin());
+        wrefresh(storageDisplayWindow.getWin());
         wrefresh(cpuInformationWindow.getWin());
+
+        // following functions found in runtime.cpp
+        updateCpuWindow(cpuInformationWindow, cpu, mem);
+        displaySystemProcesses(systemProcessWindow);
+        displayStorageInformation(storageDisplayWindow);
+
         sleep(1);
     }
+    // ---------------------------------------------------------------//
 
     // deallocates and ends ncurses
     endwin();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

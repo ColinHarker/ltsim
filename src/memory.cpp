@@ -2,33 +2,39 @@
 
 #include "memory.h"
 
-void RandomAccessMemory::parseMemInfo(std::string str,
+#include <fstream>
+#include <limits>
+#include <iostream>
+
+RandomAccessMemory::RandomAccessMemory() { run(); }
+
+void RandomAccessMemory::parseMemInfo(const std::string& memInfoType,
                                       flag::memType classVariable)
 {
     std::string token;
     std::ifstream file("/proc/meminfo");
     while (file >> token)
     {
-        if (token == str + ":")
+        if (token == memInfoType + ":")
         {
             std::string mem;
             if (file >> mem)
             {
-                if (classVariable == flag::memTotal)
+                if (classVariable == flag::memType::memTotal)
                 {
-                    memTotal = std::stoul(mem);
+                    m_memTotal = std::stoul(mem);
                 }
-                else if (classVariable == flag::memAvailable)
+                else if (classVariable == flag::memType::memAvailable)
                 {
-                    memAvailable = std::stoul(mem);
+                    m_memAvailable = std::stoul(mem);
                 }
-                else if (classVariable == flag::swapTotal)
+                else if (classVariable == flag::memType::swapTotal)
                 {
-                    swapTotal = std::stoul(mem);
+                    m_swapTotal = std::stoul(mem);
                 }
                 else
                 {
-                    swapFree = std::stoul(mem);
+                    m_swapFree = std::stoul(mem);
                 }
             }
         }
@@ -39,21 +45,20 @@ void RandomAccessMemory::parseMemInfo(std::string str,
 
 void RandomAccessMemory::run()
 {
-    parseMemInfo("MemTotal", flag::memTotal);
-    parseMemInfo("MemAvailable", flag::memAvailable);
-    parseMemInfo("SwapTotal", flag::swapTotal);
-    parseMemInfo("SwapFree", flag::swapFree);
+    parseMemInfo("MemTotal", flag::memType::memTotal);
+    parseMemInfo("MemAvailable", flag::memType::memAvailable);
+    parseMemInfo("SwapTotal", flag::memType::swapTotal);
+    parseMemInfo("SwapFree", flag::memType::swapFree);
+    calculateMemSwapUsage();
 }
 
-float RandomAccessMemory::getMemUsage()
+void RandomAccessMemory::calculateMemSwapUsage()
 {
-    memUsagePercent = 100.f * (1.f - (static_cast<double>(memAvailable) /
-                                      static_cast<double>(memTotal)));
-    return memUsagePercent;
+    m_memUsagePercent = 100.f * (1.f - (static_cast<double>(m_memAvailable) /
+                                        static_cast<double>(m_memTotal)));
+    m_swapUsagePercent = 100.f * (1.f - (static_cast<double>(m_swapFree) /
+                                         static_cast<double>(m_swapTotal)));
 }
-float RandomAccessMemory::getSwapUsage()
-{
-    swapUsagePercent = 100.f * (1.f - (static_cast<double>(swapFree) /
-                                       static_cast<double>(swapTotal)));
-    return swapUsagePercent;
-}
+
+float RandomAccessMemory::getMemUsage() const { return m_memUsagePercent; }
+float RandomAccessMemory::getSwapUsage() const { return m_swapUsagePercent; }

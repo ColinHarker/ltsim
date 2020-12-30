@@ -2,23 +2,31 @@
 
 #include "cpu-reader.h"
 
-void CpuReader::setModelName(std::string mn) { this->modelName = mn; }
+#include <limits>
+#include <numeric>
 
-float CpuReader::getUtil() { return utilization; }
+using std::string;
+using std::vector;
 
-std::vector<size_t> CpuReader::retrieve_cpu_times(int i)
+void CpuReader::setModelName(const string& mn) { m_modelName = mn; }
+
+float CpuReader::getUtilization() const { return m_utilization; }
+
+vector<size_t> CpuReader::retrieveCpuTimes(int lineNumberTarget) const
 {
 
     std::ifstream proc_stat("/proc/stat"); // opening a filestream at /proc/stat
 
     proc_stat.seekg(std::ios::beg);
-    for (int j = 0; j < i; ++j) // skip the first 4 lines of /cpuinfo
+
+    // skip the first 4 lines of /cpuinfo
+    for (int j = 0; j < lineNumberTarget; ++j)
     {
         proc_stat.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
     proc_stat.ignore(5, ' '); // Skip the 'cpu' prefix.
-    std::vector<size_t> times;
+    vector<size_t> times;
 
     for (size_t time; proc_stat >> time; times.push_back(time))
         ;
@@ -26,33 +34,33 @@ std::vector<size_t> CpuReader::retrieve_cpu_times(int i)
     return times;
 }
 
-bool CpuReader::get_cpu_times(int i)
+bool CpuReader::getCpuTimes(int lineNumberTarget)
 {
 
-    const std::vector<size_t> cpu_times = retrieve_cpu_times(i);
+    const vector<size_t> cpu_times = retrieveCpuTimes(lineNumberTarget);
 
     if (cpu_times.size() < 4)
         return false;
 
-    CpuReader::idle_time = cpu_times[3];
-    total_time = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
+    m_idleTime = cpu_times[3];
+    m_totalTime = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
 
     return true;
 }
 
-void CpuReader::run(int i)
+void CpuReader::run(int lineNumberTarget)
 {
-    if (get_cpu_times(i))
+    if (getCpuTimes(lineNumberTarget))
     {
-        const float idle_time_delta = idle_time - previous_idle_time;
-        const float total_time_delta = total_time - previous_total_time;
+        const float idle_time_delta = m_idleTime - m_previousIdleTime;
+        const float total_time_delta = m_totalTime - m_previousTotalTime;
         const float util = 100.0 * (1.0 - idle_time_delta / total_time_delta);
-        previous_idle_time = idle_time;
-        previous_total_time = total_time;
-        this->utilization = util;
+        m_previousIdleTime = m_idleTime;
+        m_previousTotalTime = m_totalTime;
+        m_utilization = util;
     }
     else
     {
-        this->utilization = -1;
+        m_utilization = -1;
     }
 }
