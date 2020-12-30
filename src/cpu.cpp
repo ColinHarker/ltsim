@@ -16,7 +16,7 @@ Cpu::Cpu()
 {
     parseModelName();
     parseVersion();
-    numCores = getNumberCores();
+    m_numCores = getNumberCores();
     addCores();
     parseCores();
     run();
@@ -24,15 +24,15 @@ Cpu::Cpu()
 
 void Cpu::run()
 {
-    cpuReader.run(0);
+    m_cpuReader.run(0);
     parseCores();
 }
 
-CpuReader Cpu::getCpu() { return cpuReader; }
+CpuReader Cpu::getCpu() { return m_cpuReader; }
 
-vector<CpuReader> Cpu::getCores() { return cores; }
+vector<CpuReader> Cpu::getCores() { return m_cores; }
 
-string Cpu::getModelName() { return cpuReader.modelName; }
+string Cpu::getModelName() { return m_cpuReader.m_modelName; }
 
 void Cpu::parseModelName()
 {
@@ -48,10 +48,10 @@ void Cpu::parseModelName()
     proc_cpuinfo.ignore(13);
     std::getline(proc_cpuinfo, mn);
 
-    cpuReader.setModelName(mn);
+    m_cpuReader.setModelName(mn);
 }
 
-string Cpu::getVersion() { return cpuReader.version; }
+string Cpu::getVersion() { return m_cpuReader.m_version; }
 
 int Cpu::getNumberCores()
 {
@@ -72,17 +72,17 @@ int Cpu::getNumberCores()
 }
 void Cpu::addCores()
 {
-    for (int i = 1; i <= numCores; i++)
+    for (int i = 1; i <= m_numCores; i++)
     {
         CpuReader cpr;
         cpr.run(i);
-        cores.emplace_back(cpr);
+        m_cores.emplace_back(cpr);
     }
 }
 void Cpu::parseCores()
 {
     int i = 1;
-    for (auto& core : cores)
+    for (auto& core : m_cores)
     {
         core.run(i++);
     }
@@ -96,5 +96,5 @@ void Cpu::parseVersion()
 
     // only grabbing the information wanted from /version
     string vers = ret.substr(0, COLS);
-    cpuReader.version = vers;
+    m_cpuReader.m_version = vers;
 }

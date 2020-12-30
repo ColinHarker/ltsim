@@ -8,9 +8,9 @@
 class Cpu
 {
 private:
-    CpuReader cpuReader;
-    int numCores = -1;
-    std::vector<CpuReader> cores;
+    CpuReader m_cpuReader;
+    int m_numCores = -1;
+    std::vector<CpuReader> m_cores;
 
     /** retrieves cpu model name from /proc/cpuinfo
      *  calls cpuReader.setModelName();

@@ -4,14 +4,14 @@
 #include "ncurses.h"
 
 WindowWrap::WindowWrap(int h, int w, int x, int y)
-    : height_(h), width_(w), start_x_(x), start_y_(y)
+    : m_height(h), m_width(w), m_start_x(x), m_start_y(y)
 {
     createWindow();
 }
 
 void WindowWrap::createWindow()
 {
-    win_ = newwin(height_, width_, start_x_, start_y_);
+    m_win = newwin(m_height, m_width, m_start_x, m_start_y);
 }
 
-WINDOW* WindowWrap::getWin() const { return win_; }
+WINDOW* WindowWrap::getWin() const { return m_win; }

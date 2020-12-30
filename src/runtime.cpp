@@ -5,6 +5,9 @@
 void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
                      RandomAccessMemory& memory)
 {
+    constexpr int k_StartColumn = 0;
+    constexpr int k_StartRow = 3;
+
     cpuContainer.run();
     memory.run();
 
@@ -13,54 +16,65 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
     float swap = memory.getSwapUsage();
     std::vector<CpuReader> core = cpuContainer.getCores();
 
-    displayCpuLevel(disp, util, "CPU", 3, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, mem, "MEM", 4, 0, flag::coreType::cpu);
-    displayCpuLevel(disp, swap, "SWAP", 5, 0, flag::coreType::cpu);
-    displayCpuCores(disp, core, 7, flag::coreType::core);
+    displayUtilizationLevel(disp, util, "CPU", k_StartRow, k_StartColumn,
+                            flag::displayLength::standard);
+    displayUtilizationLevel(disp, mem, "MEM", k_StartRow + 1, k_StartColumn,
+                            flag::displayLength::standard);
+    displayUtilizationLevel(disp, swap, "SWAP", k_StartRow + 2, k_StartColumn,
+                            flag::displayLength::standard);
+
+    displayCpuCores(disp, core, k_StartRow + 4, flag::displayLength::small);
 }
 
-void displayCpuLevel(WindowWrap& disp, float util, std::string label, int y,
-                     int start_x, flag::coreType ct)
+void displayUtilizationLevel(WindowWrap& disp, float util,
+                             const std::string& label, int row, int startColumn,
+                             flag::displayLength length)
 {
-    int displayLength = (ct == flag::coreType::cpu) ? 32 : 10;
+    constexpr int k_Standard = 32;
+    constexpr int k_Small = 10;
 
-    displayElement(disp, y, start_x, label, flag::printType::standard,
+    int displayLength =
+        (length == flag::displayLength::standard) ? k_Standard : k_Small;
+
+    displayElement(disp, row, startColumn, label, flag::printType::standard,
                    flag::color::none);
-    displayElement(disp, y, start_x + 5, "[", flag::printType::standard,
+    displayElement(disp, row, startColumn + 5, "[", flag::printType::standard,
                    flag::color::none);
 
-    int level = static_cast<int>((displayLength * (util / 100)) + start_x + 6);
+    int level =
+        static_cast<int>((displayLength * (util / 100)) + startColumn + 6);
     for (int i = 0; i < displayLength; i++)
     {
-        int offset = i + start_x + 6;
+        int offset = i + startColumn + 6;
         if (offset > level)
         {
-            mvwprintw(disp.getWin(), y, offset, " ");
+            mvwprintw(disp.getWin(), row, offset, " ");
         }
         else
         {
-            displayPercentColor(disp, util, "|", y, offset);
+            displayPercentColor(disp, util, "|", row, offset);
         }
         wrefresh(disp.getWin());
     }
-    mvwprintw(disp.getWin(), y, start_x + displayLength + 6, "]");
+    mvwprintw(disp.getWin(), row, startColumn + displayLength + 6, "]");
 
     std::ostringstream ss;
     ss << std::setprecision(2) << std::setw(4) << std::fixed << util << "%%";
-    displayPercentColor(disp, util, ss.str() + " ", y,
-                        start_x + displayLength + 8);
+    displayPercentColor(disp, util, ss.str() + " ", row,
+                        startColumn + displayLength + 8);
 }
 
-void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int y,
-                     flag::coreType ct)
+void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int row,
+                     flag::displayLength length)
 {
-    int i = 1;
+    int coreNumber = 1; // Index 0 is taken up by full CPU
     for (auto& core : cores)
     {
-        displayCpuLevel(disp, core.getUtilization(), "Core" + std::to_string(i),
-                        y, 0, ct);
-        y++;
-        i++;
+        displayUtilizationLevel(disp, core.getUtilization(),
+                                "Core" + std::to_string(coreNumber), row, 0,
+                                length);
+        row++;
+        coreNumber++;
     }
 }
 

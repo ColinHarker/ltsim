@@ -10,13 +10,13 @@
 class RandomAccessMemory
 {
 private:
-    unsigned long memTotal = 0;
-    unsigned long memAvailable = 0;
-    unsigned long swapTotal = 0;
-    unsigned long swapFree = 0;
+    unsigned long m_memTotal = 0;
+    unsigned long m_memAvailable = 0;
+    unsigned long m_swapTotal = 0;
+    unsigned long m_swapFree = 0;
 
-    float memUsagePercent = -1.0;
-    float swapUsagePercent = -1.0;
+    float m_memUsagePercent = -1.0;
+    float m_swapUsagePercent = -1.0;
 
     /** parses information from /proc/meminfo
      * @param memInfoType choose from MemTotal, MemAvailable, SwapTotal,

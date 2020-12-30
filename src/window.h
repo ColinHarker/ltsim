@@ -8,11 +8,11 @@ typedef struct _win_st WINDOW;
 class WindowWrap
 {
 private:
-    int height_;
-    int width_;
-    int start_x_;
-    int start_y_;
-    WINDOW* win_;
+    int m_height;
+    int m_width;
+    int m_start_x;
+    int m_start_y;
+    WINDOW* m_win;
     void createWindow();
 
 public:

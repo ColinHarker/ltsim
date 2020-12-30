@@ -9,15 +9,15 @@
 class CpuReader
 {
 private:
-    std::string modelName;
-    std::string version;
+    std::string m_modelName;
+    std::string m_version;
 
-    size_t previousIdleTime = 0;
-    size_t previousTotalTime = 0;
-    size_t idleTime;
-    size_t totalTime;
+    size_t m_previousIdleTime = 0;
+    size_t m_previousTotalTime = 0;
+    size_t m_idleTime;
+    size_t m_totalTime;
 
-    float utilization;
+    float m_utilization;
 
     friend class Cpu;
 

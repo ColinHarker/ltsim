@@ -8,9 +8,9 @@
 using std::string;
 using std::vector;
 
-void CpuReader::setModelName(const string& mn) { modelName = mn; }
+void CpuReader::setModelName(const string& mn) { m_modelName = mn; }
 
-float CpuReader::getUtilization() const { return utilization; }
+float CpuReader::getUtilization() const { return m_utilization; }
 
 vector<size_t> CpuReader::retrieveCpuTimes(int lineNumberTarget) const
 {
@@ -42,8 +42,8 @@ bool CpuReader::getCpuTimes(int lineNumberTarget)
     if (cpu_times.size() < 4)
         return false;
 
-    CpuReader::idleTime = cpu_times[3];
-    totalTime = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
+    m_idleTime = cpu_times[3];
+    m_totalTime = std::accumulate(cpu_times.begin(), cpu_times.end(), 0);
 
     return true;
 }
@@ -52,15 +52,15 @@ void CpuReader::run(int lineNumberTarget)
 {
     if (getCpuTimes(lineNumberTarget))
     {
-        const float idle_time_delta = idleTime - previousIdleTime;
-        const float total_time_delta = totalTime - previousTotalTime;
+        const float idle_time_delta = m_idleTime - m_previousIdleTime;
+        const float total_time_delta = m_totalTime - m_previousTotalTime;
         const float util = 100.0 * (1.0 - idle_time_delta / total_time_delta);
-        previousIdleTime = idleTime;
-        previousTotalTime = totalTime;
-        this->utilization = util;
+        m_previousIdleTime = m_idleTime;
+        m_previousTotalTime = m_totalTime;
+        m_utilization = util;
     }
     else
     {
-        this->utilization = -1;
+        m_utilization = -1;
     }
 }

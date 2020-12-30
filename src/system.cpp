@@ -4,14 +4,14 @@
 
 System::System(){};
 
-void System::add(SystemProcess& sp) { processes.emplace_back(sp); }
+void System::add(SystemProcess& sp) { m_processes.emplace_back(sp); }
 
-SystemProcess System::get(int index) { return processes.at(index); }
+SystemProcess System::get(int index) { return m_processes.at(index); }
 
 void System::print()
 {
 
-    for (SystemProcess p : processes)
+    for (SystemProcess p : m_processes)
     {
         p.print();
     }
@@ -19,7 +19,7 @@ void System::print()
 
 void System::sort()
 {
-    std::sort(processes.begin(), processes.end(),
+    std::sort(m_processes.begin(), m_processes.end(),
               [](SystemProcess& lhs, SystemProcess& rhs) {
                   return lhs.getCpuAsFloat() > rhs.getCpuAsFloat();
               });
@@ -33,7 +33,7 @@ void System::display(WindowWrap& disp)
 
     mvwprintw(disp.getWin(), 1, 0, titles);
     int ROW = 2;
-    for (SystemProcess sp : processes)
+    for (SystemProcess sp : m_processes)
     {
         float cpu = sp.getCpuAsFloat();
         float mem = sp.getMemAsFloat();
@@ -48,4 +48,4 @@ void System::display(WindowWrap& disp)
     wclrtobot(disp.getWin());
 }
 
-void System::remove(int i) { processes.erase(processes.begin() + i); }
+void System::remove(int i) { m_processes.erase(m_processes.begin() + i); }

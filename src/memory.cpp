@@ -22,19 +22,19 @@ void RandomAccessMemory::parseMemInfo(const std::string& memInfoType,
             {
                 if (classVariable == flag::memType::memTotal)
                 {
-                    memTotal = std::stoul(mem);
+                    m_memTotal = std::stoul(mem);
                 }
                 else if (classVariable == flag::memType::memAvailable)
                 {
-                    memAvailable = std::stoul(mem);
+                    m_memAvailable = std::stoul(mem);
                 }
                 else if (classVariable == flag::memType::swapTotal)
                 {
-                    swapTotal = std::stoul(mem);
+                    m_swapTotal = std::stoul(mem);
                 }
                 else
                 {
-                    swapFree = std::stoul(mem);
+                    m_swapFree = std::stoul(mem);
                 }
             }
         }
@@ -54,11 +54,11 @@ void RandomAccessMemory::run()
 
 void RandomAccessMemory::calculateMemSwapUsage()
 {
-    memUsagePercent = 100.f * (1.f - (static_cast<double>(memAvailable) /
-                                      static_cast<double>(memTotal)));
-    swapUsagePercent = 100.f * (1.f - (static_cast<double>(swapFree) /
-                                       static_cast<double>(swapTotal)));
+    m_memUsagePercent = 100.f * (1.f - (static_cast<double>(m_memAvailable) /
+                                        static_cast<double>(m_memTotal)));
+    m_swapUsagePercent = 100.f * (1.f - (static_cast<double>(m_swapFree) /
+                                         static_cast<double>(m_swapTotal)));
 }
 
-float RandomAccessMemory::getMemUsage() const { return memUsagePercent; }
-float RandomAccessMemory::getSwapUsage() const { return swapUsagePercent; }
+float RandomAccessMemory::getMemUsage() const { return m_memUsagePercent; }
+float RandomAccessMemory::getSwapUsage() const { return m_swapUsagePercent; }

@@ -30,11 +30,12 @@ enum class printType : int
     standard
 };
 
-enum class coreType : int
+enum class displayLength : int
 {
-    cpu,
-    core
+    standard,
+    small
 };
+
 enum class memType : int
 {
     memTotal,

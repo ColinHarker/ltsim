@@ -15,7 +15,7 @@ class System;
 class System
 {
 private:
-    std::vector<SystemProcess> processes;
+    std::vector<SystemProcess> m_processes;
 
 public:
     System();
