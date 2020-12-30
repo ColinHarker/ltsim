@@ -5,10 +5,13 @@
 
 #include "cpu-reader.h"
 
+#include <queue>
+
 class Cpu
 {
 private:
     CpuReader m_cpuReader;
+    std::queue<float> m_cpuHistory;
     int m_numCores = -1;
     std::vector<CpuReader> m_cores;
 

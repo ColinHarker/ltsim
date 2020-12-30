@@ -12,11 +12,16 @@ private:
     int m_width;
     int m_start_x;
     int m_start_y;
+
     WINDOW* m_win;
     void createWindow();
 
 public:
     WindowWrap(int h, int w, int x, int y);
+
+    int getWidth() const;
+
+    int getHeight() const;
 
     WINDOW* getWin() const;
 };

@@ -70,7 +70,7 @@ int main()
 
     WindowWrap topDisplayHeader(1, COLS, 0, 0);
     WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 1, 0);
-    WindowWrap storageDisplayWindow(LINES / 2, COLS / 2, 1, COLS / 2);
+    WindowWrap storageDisplayWindow((LINES / 2) - 1, COLS / 2, 1, COLS / 2);
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
 
     // ---------------------------------------------------------------//
