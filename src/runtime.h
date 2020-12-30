@@ -32,11 +32,23 @@ void displayUtilizationLevel(WindowWrap& display, float utilization,
                              const std::string& label, int row, int startColumn,
                              flag::displayLength length);
 
-void displayCpuCores(WindowWrap&, std::vector<CpuReader>, int,
-                     flag::displayLength);
+/** Iterates through vector of cpu cores and displays the utilization of each
+ * @param display WindowWrap object in which we will display
+ * @param cores Vector of CpuReader, one for each cpu core
+ * @param startRow Row where the first core is displayed
+ * @param length Enum class to choose between standard or small display length
+ */
+void displayCpuCores(WindowWrap& display, const std::vector<CpuReader> cores,
+                     int startRow, flag::displayLength length);
 
-void displaySystemProcesses(WindowWrap&);
+/** Parses system information and displays to window
+ * @param display WindowWrap object in which we will display
+ */
+void displaySystemProcesses(WindowWrap& display);
 
-void displayStorageInformation(WindowWrap&);
+/** Parses storage information and displays to window
+ * @param display WindowWrap object in which we will display
+ */
+void displayStorageInformation(WindowWrap& display);
 
 #endif

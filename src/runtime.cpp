@@ -30,11 +30,12 @@ void displayUtilizationLevel(WindowWrap& disp, float util,
                              const std::string& label, int row, int startColumn,
                              flag::displayLength length)
 {
-    constexpr int k_Standard = 32;
-    constexpr int k_Small = 10;
+    constexpr int k_StandardLength = 32;
+    constexpr int k_SmallLength = 10;
 
-    int displayLength =
-        (length == flag::displayLength::standard) ? k_Standard : k_Small;
+    int displayLength = (length == flag::displayLength::standard)
+                            ? k_StandardLength
+                            : k_SmallLength;
 
     displayElement(disp, row, startColumn, label, flag::printType::standard,
                    flag::color::none);
@@ -64,16 +65,16 @@ void displayUtilizationLevel(WindowWrap& disp, float util,
                         startColumn + displayLength + 8);
 }
 
-void displayCpuCores(WindowWrap& disp, std::vector<CpuReader> cores, int row,
-                     flag::displayLength length)
+void displayCpuCores(WindowWrap& disp, const std::vector<CpuReader> cores,
+                     int startRow, flag::displayLength length)
 {
     int coreNumber = 1; // Index 0 is taken up by full CPU
     for (auto& core : cores)
     {
         displayUtilizationLevel(disp, core.getUtilization(),
-                                "Core" + std::to_string(coreNumber), row, 0,
-                                length);
-        row++;
+                                "Core" + std::to_string(coreNumber), startRow,
+                                0, length);
+        startRow++;
         coreNumber++;
     }
 }
