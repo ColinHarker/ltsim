@@ -6,10 +6,10 @@
 #include <vector>
 
 #include "cpu.h"
-#include "system.h"
-#include "window.h"
 #include "memory.h"
+#include "system.h"
 #include "utils.h"
+#include "window.h"
 
 /** Updates the window that displays cpu information
  * @param display the WindowWrap object in which we are updating
@@ -17,8 +17,7 @@
  * @param memory RandomAccessMemory object that contains information in relation
  *               to ram and swap
  */
-void updateCpuWindow(WindowWrap& display, Cpu& cpuContainer,
-                     RandomAccessMemory& memory);
+void updateCpuWindow(WindowWrap& display, Cpu& cpuContainer, RandomAccessMemory& memory);
 
 /** Driver function to display utilization of specified component
  * @param display WindowWrap object in which we will display
@@ -28,9 +27,7 @@ void updateCpuWindow(WindowWrap& display, Cpu& cpuContainer,
  * @param startColumn The column within the row that the display will begin
  * @param length Enum class to choose between standard or small display length
  */
-void displayUtilizationLevel(WindowWrap& display, float utilization,
-                             const std::string& label, int row, int startColumn,
-                             flag::displayLength length);
+void displayUtilizationLevel(WindowWrap& display, float utilization, const std::string& label, int row, int startColumn, flag::displayLength length);
 
 /** Iterates through vector of cpu cores and displays the utilization of each
  * @param display WindowWrap object in which we will display
@@ -38,8 +35,7 @@ void displayUtilizationLevel(WindowWrap& display, float utilization,
  * @param startRow Row where the first core is displayed
  * @param length Enum class to choose between standard or small display length
  */
-void displayCpuCores(WindowWrap& display, const std::vector<CpuReader> cores,
-                     int startRow, flag::displayLength length);
+void displayCpuCores(WindowWrap& display, const std::vector<CpuReader> cores, int startRow, flag::displayLength length);
 
 /** Parses system information and displays to window
  * @param display WindowWrap object in which we will display
@@ -51,12 +47,13 @@ void displaySystemProcesses(WindowWrap& display);
  */
 void displayStorageInformation(WindowWrap& display);
 
-template <int T>
-void displayCpuUtilizationGraph(WindowWrap& display,
+template<int T>
+void displayCpuUtilizationGraph(WindowWrap&          display,
                                 FixedDeque<float, T> utilizationHistory,
-                                int row, int column, int width);
+                                int                  row,
+                                int                  column,
+                                int                  width);
 
-void displayVerticalLevel(WindowWrap& display, int row, int startColumn,
-                          int width, float utilization);
+void displayVerticalLevel(WindowWrap& display, int row, int startColumn, int width, float utilization);
 
 #endif

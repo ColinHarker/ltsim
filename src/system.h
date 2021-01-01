@@ -3,46 +3,46 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 class System;
 
-#include "window.h"
 #include "system-process.h"
 #include "utils.h"
+#include "window.h"
 
 class System
 {
 private:
-    std::vector<SystemProcess> m_processes;
+   std::vector<SystemProcess> m_processes;
 
 public:
-    System();
-    void add(SystemProcess&);
+   System();
+   void add(SystemProcess&);
 
-    /** retrieves process from processes vector
+   /** retrieves process from processes vector
      * @param index index of process to be retrieved
      * @return SystemProcess object
      */
-    SystemProcess get(int index);
+   SystemProcess get(int index);
 
-    /** sorts the processes in decending order based on cpu load
+   /** sorts the processes in decending order based on cpu load
      */
-    void sort();
+   void sort();
 
-    /** displays all system proccesses held in System Object to designated
+   /** displays all system proccesses held in System Object to designated
      * window
      * @param win window to be dispayed on
      */
-    void display(WindowWrap& win);
+   void display(WindowWrap& win);
 
-    void print();
+   void print();
 
-    /** Remove watched process at index
+   /** Remove watched process at index
      * @param index Index within processes vector to remove
      */
-    void remove(int index);
+   void remove(int index);
 };
 
 #endif
