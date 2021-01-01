@@ -28,7 +28,8 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer,
 
     displayCpuCores(disp, core, k_StartRow + 4, flag::displayLength::small);
 
-    displayCpuUtilizationGraph(disp, util, k_GraphStartRow, k_GraphStartColumn,
+    displayCpuUtilizationGraph(disp, cpuContainer.getCpuHistory(),
+                               k_GraphStartRow, k_GraphStartColumn,
                                (disp.getWidth() / 2) - 2);
 }
 
@@ -109,8 +110,10 @@ void displaySystemProcesses(WindowWrap& disp)
     sys.display(disp);
 }
 
-void displayCpuUtilizationGraph(WindowWrap& display, float util, int row,
-                                int column, int width)
+template <int T>
+void displayCpuUtilizationGraph(WindowWrap& display,
+                                FixedDeque<float, T> utilizationHistory,
+                                int row, int column, int width)
 {
     // display corner bounds of graph
     displayElement(display, row, column, "+", flag::printType::standard,
@@ -121,4 +124,22 @@ void displayCpuUtilizationGraph(WindowWrap& display, float util, int row,
                    flag::color::none);
     displayElement(display, row + 7, column + width, "+",
                    flag::printType::standard, flag::color::none);
+    /*
+        for (int i = 0; i < width - 2; i++)
+        {
+            displayVerticalLevel(display, row + 7, column + width - 1, width,
+                                 utilizationHistory[i]);
+        }
+        */
+}
+
+void displayVerticalLevel(WindowWrap& display, int row, int startColumn,
+                          int width, float utilization)
+{
+    utilization /= 10;
+    for (int i = 0; i < utilization; i++)
+    {
+        displayElement(display, row + i, startColumn, "|",
+                       flag::printType::standard, flag::color::none);
+    }
 }

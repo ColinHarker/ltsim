@@ -2,15 +2,7 @@
 
 #include "system-process.h"
 
-SystemProcess::SystemProcess(std::string t_user, std::string t_pid,
-                             std::string t_cpu, std::string t_mem,
-                             std::string t_vsz, std::string t_rss,
-                             std::string t_tty, std::string t_stat,
-                             std::string t_start, std::string t_time,
-                             std::string t_command)
-    : user(t_user), pid(t_pid), cpu(t_cpu), mem(t_mem), vsz(t_vsz), rss(t_rss),
-      tty(t_tty), stat(t_stat), start(t_start), time(t_time),
-      command(t_command){};
+SystemProcess::SystemProcess(){};
 
 void SystemProcess::parse(const std::string& buffer)
 {
@@ -33,9 +25,11 @@ void SystemProcess::parse(const std::string& buffer)
     }
 }
 
-SystemProcess::SystemProcess(){};
-
-void SystemProcess::print() { std::cout << this->toString(); }
+std::ostream& operator<<(std::ostream& os, SystemProcess& sp)
+{
+    os << sp.toString();
+    return os;
+}
 
 std::string SystemProcess::toString()
 {

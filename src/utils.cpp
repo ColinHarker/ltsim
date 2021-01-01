@@ -2,8 +2,6 @@
 
 #include "utils.h"
 
-#include <deque>
-
 using std::string;
 using std::vector;
 
@@ -91,11 +89,8 @@ vector<string> parseCommandLineOutput(const char* cmd)
         result = buffer.data();
 
         // skipping over unneccessary data in stream
-        if (result.find("Filesystem") != string::npos)
-        {
-            continue;
-        }
-        else if (result.find("/dev/loop") != string::npos)
+        if ((result.find("Filesystem") != string::npos) ||
+            (result.find("/dev/loop") != string::npos))
         {
             continue;
         }
@@ -104,17 +99,3 @@ vector<string> parseCommandLineOutput(const char* cmd)
 
     return buffer_container;
 }
-
-template <typename T, int MaxLen, typename Container = std::deque<T>>
-class FixedQueue : public std::queue<T, Container>
-{
-public:
-    void push(const T& value)
-    {
-        if (this->size() == MaxLen)
-        {
-            this->c.pop_front();
-        }
-        std::queue<T, Container>::push(value);
-    }
-};

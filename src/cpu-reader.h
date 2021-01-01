@@ -34,7 +34,7 @@ private:
      */
     std::vector<size_t> retrieveCpuTimes(int) const;
 
-    /**  calculates the total cpu utilization, takes in an int to
+    /** Calculates the total cpu utilization, takes in an int to
      * specify what information to parse. 0 parses total cpu, 1-8
      *  or more denotes specific cores.
      * @param lineNumberTarget the line in the /proc/stat file we are targeting

@@ -51,7 +51,12 @@ void displaySystemProcesses(WindowWrap& display);
  */
 void displayStorageInformation(WindowWrap& display);
 
-void displayCpuUtilizationGraph(WindowWrap& display, float utilization, int row,
-                                int column, int width);
+template <int T>
+void displayCpuUtilizationGraph(WindowWrap& display,
+                                FixedDeque<float, T> utilizationHistory,
+                                int row, int column, int width);
+
+void displayVerticalLevel(WindowWrap& display, int row, int startColumn,
+                          int width, float utilization);
 
 #endif

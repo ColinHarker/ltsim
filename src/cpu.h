@@ -4,16 +4,17 @@
 #define CPU_H
 
 #include "cpu-reader.h"
+#include "utils.h"
 
 #include <queue>
 
 class Cpu
 {
 private:
-    CpuReader m_cpuReader;
-    std::queue<float> m_cpuHistory;
-    int m_numCores = -1;
-    std::vector<CpuReader> m_cores;
+    CpuReader m_CpuReader;
+    FixedDeque<float, 100> m_CpuHistory;
+    int m_NumCores = -1;
+    std::vector<CpuReader> m_Cores;
 
     /** retrieves cpu model name from /proc/cpuinfo
      *  calls cpuReader.setModelName();
@@ -48,6 +49,7 @@ public:
     CpuReader getCpu();
     std::vector<CpuReader> getCores();
     std::string getModelName();
+    FixedDeque<float, 100> getCpuHistory() const;
 };
 
 #endif

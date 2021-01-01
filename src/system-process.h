@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <ncurses.h>
+#include <ostream>
 
 class SystemProcess
 {
@@ -16,17 +17,22 @@ private:
 
 public:
     SystemProcess();
-    SystemProcess(std::string, std::string, std::string, std::string,
-                  std::string, std::string, std::string, std::string,
-                  std::string, std::string, std::string);
 
-    void parse(const std::string&);
-    void print();
+    /** Takes in buffer from command line output, assigns values to class
+     * members
+     * @param buffer string of chars from command line output
+     */
+    void parse(const std::string& buffer);
+
+    friend std::ostream& operator<<(std::ostream& os, SystemProcess& sp);
+
     float getCpuAsFloat() const;
     float getMemAsFloat() const;
+
     std::string getCpuAsString() const;
     std::string getMemAsString() const;
     std::string toString();
+
     void setCpu(const std::string& std);
 };
 

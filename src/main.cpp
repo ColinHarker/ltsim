@@ -64,14 +64,15 @@ int main()
     init_pair(3, COLOR_RED, COLOR_BLACK);
 
     // initialize runtime objects
-    Cpu cpu;
-    RandomAccessMemory mem;
-    bool running = true;
-
     WindowWrap topDisplayHeader(1, COLS, 0, 0);
     WindowWrap cpuInformationWindow(LINES / 2, COLS / 2, 1, 0);
     WindowWrap storageDisplayWindow((LINES / 2) - 1, COLS / 2, 1, COLS / 2);
     WindowWrap systemProcessWindow((LINES / 2) + 1, COLS, LINES / 2, 0);
+
+    const int size = cpuInformationWindow.getWidth() / 2;
+    Cpu cpu;
+    RandomAccessMemory mem;
+    bool running = true;
 
     // ---------------------------------------------------------------//
 

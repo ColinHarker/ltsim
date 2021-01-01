@@ -13,7 +13,7 @@ void System::print()
 
     for (SystemProcess p : m_processes)
     {
-        p.print();
+        std::cout << p << "\n";
     }
 }
 
