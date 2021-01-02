@@ -4,10 +4,8 @@
 
 void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer, RandomAccessMemory& memory)
 {
-   constexpr int k_StartColumn      = 0;
-   constexpr int k_StartRow         = 3;
-   constexpr int k_GraphStartRow    = 7;
-   constexpr int k_GraphStartColumn = 25;
+   constexpr int k_StartColumn = 0;
+   constexpr int k_StartRow    = 3;
 
    cpuContainer.run();
    memory.run();
