@@ -53,9 +53,10 @@ void CpuReader::run(int lineNumberTarget)
       const float idle_time_delta  = m_idleTime - m_previousIdleTime;
       const float total_time_delta = m_totalTime - m_previousTotalTime;
       const float util             = 100.0 * (1.0 - idle_time_delta / total_time_delta);
-      m_previousIdleTime           = m_idleTime;
-      m_previousTotalTime          = m_totalTime;
-      m_utilization                = util;
+
+      m_previousIdleTime  = m_idleTime;
+      m_previousTotalTime = m_totalTime;
+      m_utilization       = util;
    }
    else
    {

@@ -52,21 +52,4 @@ System                   parseSystemInformation();
 std::vector<std::string> parseStorageInformation();
 std::vector<std::string> parseCommandLineOutput(const char*);
 
-/** Taken from https://stackoverflow.com/a/56334648
- * Usage: FixedDeque<float, 5> fq;
- */
-template<typename T, int MAX_LENGTH>
-class FixedDeque : public std::deque<T>
-{
-public:
-   void push(const T& value)
-   {
-      if(this->size() == MAX_LENGTH)
-      {
-         this->pop_front();
-      }
-      std::deque<T>::push_front(value);
-   }
-};
-
 #endif

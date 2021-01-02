@@ -23,8 +23,6 @@ void updateCpuWindow(WindowWrap& disp, Cpu& cpuContainer, RandomAccessMemory& me
    displayUtilizationLevel(disp, swap, "SWAP", k_StartRow + 2, k_StartColumn, flag::displayLength::standard);
 
    displayCpuCores(disp, core, k_StartRow + 4, flag::displayLength::small);
-
-   displayCpuUtilizationGraph(disp, cpuContainer.getCpuHistory(), k_GraphStartRow, k_GraphStartColumn, (disp.getWidth() / 2) - 2);
 }
 
 void displayUtilizationLevel(WindowWrap& disp, float util, const std::string& label, int row, int startColumn, flag::displayLength length)
@@ -88,34 +86,4 @@ void displaySystemProcesses(WindowWrap& disp)
    sys.remove(0);  // removing the menu string
    sys.sort();
    sys.display(disp);
-}
-
-template<int T>
-void displayCpuUtilizationGraph(WindowWrap&          display,
-                                FixedDeque<float, T> utilizationHistory,
-                                int                  row,
-                                int                  column,
-                                int                  width)
-{
-   // display corner bounds of graph
-   displayElement(display, row, column, "+", flag::printType::standard, flag::color::none);
-   displayElement(display, row + 7, column, "+", flag::printType::standard, flag::color::none);
-   displayElement(display, row, column + width, "+", flag::printType::standard, flag::color::none);
-   displayElement(display, row + 7, column + width, "+", flag::printType::standard, flag::color::none);
-   /*
-        for (int i = 0; i < width - 2; i++)
-        {
-            displayVerticalLevel(display, row + 7, column + width - 1, width,
-                                 utilizationHistory[i]);
-        }
-        */
-}
-
-void displayVerticalLevel(WindowWrap& display, int row, int startColumn, int width, float utilization)
-{
-   utilization /= 10;
-   for(int i = 0; i < utilization; i++)
-   {
-      displayElement(display, row + i, startColumn, "|", flag::printType::standard, flag::color::none);
-   }
 }
