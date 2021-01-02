@@ -12,7 +12,6 @@ class Cpu
 {
 private:
    CpuReader              m_CpuReader;
-   FixedDeque<float, 100> m_CpuHistory;
    int                    m_NumCores = -1;
    std::vector<CpuReader> m_Cores;
 
@@ -49,7 +48,6 @@ public:
    std::vector<CpuReader> getCores();
    std::string            getVersion();
    std::string            getModelName();
-   FixedDeque<float, 100> getCpuHistory() const;
 };
 
 #endif
