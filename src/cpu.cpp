@@ -25,7 +25,6 @@ Cpu::Cpu()
 void Cpu::run()
 {
    m_CpuReader.run(0);
-   m_CpuHistory.push(m_CpuReader.getUtilization());
    parseCores();
 }
 
@@ -98,5 +97,3 @@ void Cpu::parseVersion()
    string vers           = ret.substr(0, COLS);
    m_CpuReader.m_version = vers;
 }
-
-FixedDeque<float, 100> Cpu::getCpuHistory() const { return m_CpuHistory; }
